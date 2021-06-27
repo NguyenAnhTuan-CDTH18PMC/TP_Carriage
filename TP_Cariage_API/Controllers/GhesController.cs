@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
 using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Controllers
 {
-    public class GhesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GhesController : ControllerBase
     {
         private readonly TPCarriageContext _context;
 
@@ -19,130 +21,85 @@ namespace TP_Cariage_API.Controllers
             _context = context;
         }
 
-        // GET: Ghes
-        public async Task<IActionResult> Index()
+        // GET: api/Ghes
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Ghes>>> GetGhes()
         {
-            return View(await _context.Ghes.ToListAsync());
+            return await _context.Ghes.ToListAsync();
         }
 
-        // GET: Ghes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: api/Ghes/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Ghes>> GetGhes(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ghes = await _context.Ghes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ghes == null)
-            {
-                return NotFound();
-            }
-
-            return View(ghes);
-        }
-
-        // GET: Ghes/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Ghes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SoHang,SoCot,TrangThai")] Ghes ghes)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(ghes);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(ghes);
-        }
-
-        // GET: Ghes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var ghes = await _context.Ghes.FindAsync(id);
+
             if (ghes == null)
             {
                 return NotFound();
             }
-            return View(ghes);
+
+            return ghes;
         }
 
-        // POST: Ghes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SoHang,SoCot,TrangThai")] Ghes ghes)
+        // PUT: api/Ghes/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutGhes(int id, Ghes ghes)
         {
             if (id != ghes.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            _context.Entry(ghes).State = EntityState.Modified;
+
+            try
             {
-                try
-                {
-                    _context.Update(ghes);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GhesExists(ghes.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            return View(ghes);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GhesExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // GET: Ghes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: api/Ghes
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<Ghes>> PostGhes(Ghes ghes)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _context.Ghes.Add(ghes);
+            await _context.SaveChangesAsync();
 
-            var ghes = await _context.Ghes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return CreatedAtAction("GetGhes", new { id = ghes.Id }, ghes);
+        }
+
+        // DELETE: api/Ghes/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Ghes>> DeleteGhes(int id)
+        {
+            var ghes = await _context.Ghes.FindAsync(id);
             if (ghes == null)
             {
                 return NotFound();
             }
 
-            return View(ghes);
-        }
-
-        // POST: Ghes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var ghes = await _context.Ghes.FindAsync(id);
             _context.Ghes.Remove(ghes);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return ghes;
         }
 
         private bool GhesExists(int id)
