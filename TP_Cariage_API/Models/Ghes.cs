@@ -16,7 +16,6 @@ namespace TP_Cariage_API.Models
         public string TrangThai { get; set; }
 
 
-        public virtual LoaiGhes LoaiGhe { get; set; }
         public virtual Xes Xe { get; set; }
         public virtual ICollection<ChiTietVes> ChiTietVes { get; set; }
     }

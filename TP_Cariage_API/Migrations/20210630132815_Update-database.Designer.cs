@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TP_Cariage_API.Data;
 
 namespace TP_Cariage_API.Migrations
 {
     [DbContext(typeof(TPCarriageContext))]
-    partial class TPCarriageContextModelSnapshot : ModelSnapshot
+    [Migration("20210630132815_Update-database")]
+    partial class Updatedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

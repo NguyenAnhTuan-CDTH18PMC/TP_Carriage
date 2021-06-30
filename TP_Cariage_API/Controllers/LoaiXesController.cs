@@ -12,48 +12,48 @@ namespace TP_Cariage_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoaiGhesController : ControllerBase
+    public class LoaiXesController : ControllerBase
     {
         private readonly TPCarriageContext _context;
 
-        public LoaiGhesController(TPCarriageContext context)
+        public LoaiXesController(TPCarriageContext context)
         {
             _context = context;
         }
 
-        // GET: api/LoaiGhes
+        // GET: api/LoaiXes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiGhes>>> GetLoaiGhes()
+        public async Task<ActionResult<IEnumerable<LoaiXes>>> GetLoaiGhes()
         {
             return await _context.LoaiGhes.ToListAsync();
         }
 
-        // GET: api/LoaiGhes/5
+        // GET: api/LoaiXes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoaiGhes>> GetLoaiGhes(int id)
+        public async Task<ActionResult<LoaiXes>> GetLoaiXes(int id)
         {
-            var loaiGhes = await _context.LoaiGhes.FindAsync(id);
+            var loaiXes = await _context.LoaiGhes.FindAsync(id);
 
-            if (loaiGhes == null)
+            if (loaiXes == null)
             {
                 return NotFound();
             }
 
-            return loaiGhes;
+            return loaiXes;
         }
 
-        // PUT: api/LoaiGhes/5
+        // PUT: api/LoaiXes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoaiGhes(int id, LoaiGhes loaiGhes)
+        public async Task<IActionResult> PutLoaiXes(int id, LoaiXes loaiXes)
         {
-            if (id != loaiGhes.Id)
+            if (id != loaiXes.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(loaiGhes).State = EntityState.Modified;
+            _context.Entry(loaiXes).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TP_Cariage_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LoaiGhesExists(id))
+                if (!LoaiXesExists(id))
                 {
                     return NotFound();
                 }
@@ -74,35 +74,35 @@ namespace TP_Cariage_API.Controllers
             return NoContent();
         }
 
-        // POST: api/LoaiGhes
+        // POST: api/LoaiXes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<LoaiGhes>> PostLoaiGhes(LoaiGhes loaiGhes)
+        public async Task<ActionResult<LoaiXes>> PostLoaiXes(LoaiXes loaiXes)
         {
-            _context.LoaiGhes.Add(loaiGhes);
+            _context.LoaiGhes.Add(loaiXes);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLoaiGhes", new { id = loaiGhes.Id }, loaiGhes);
+            return CreatedAtAction("GetLoaiXes", new { id = loaiXes.Id }, loaiXes);
         }
 
-        // DELETE: api/LoaiGhes/5
+        // DELETE: api/LoaiXes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<LoaiGhes>> DeleteLoaiGhes(int id)
+        public async Task<ActionResult<LoaiXes>> DeleteLoaiXes(int id)
         {
-            var loaiGhes = await _context.LoaiGhes.FindAsync(id);
-            if (loaiGhes == null)
+            var loaiXes = await _context.LoaiGhes.FindAsync(id);
+            if (loaiXes == null)
             {
                 return NotFound();
             }
 
-            _context.LoaiGhes.Remove(loaiGhes);
+            _context.LoaiGhes.Remove(loaiXes);
             await _context.SaveChangesAsync();
 
-            return loaiGhes;
+            return loaiXes;
         }
 
-        private bool LoaiGhesExists(int id)
+        private bool LoaiXesExists(int id)
         {
             return _context.LoaiGhes.Any(e => e.Id == id);
         }

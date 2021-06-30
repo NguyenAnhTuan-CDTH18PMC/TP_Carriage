@@ -20,6 +20,7 @@ namespace TP_Cariage_API.Models
         public DateTime NamSinh { get; set; }
         public int Quyen { get; set; }
         public DateTime NgayTaoTk { get; set; }
+        public int GioiTinh { get; set; }
         public int TrangThai { get; set; }
 
         public virtual ICollection<Chats> Chats { get; set; }

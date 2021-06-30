@@ -20,12 +20,15 @@ namespace TP_Cariage_API.Data
         public DbSet<DiaDiems> DiemDens { get; set; }
         public DbSet<Ghes> Ghes { get; set; }
         public DbSet<LichTrinhs> LichTrinhs { get; set; }
-        public DbSet<LoaiGhes> LoaiGhes { get; set; }
+        public DbSet<LoaiXes> LoaiGhes { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<Messagegroups> Messagegroups { get; set; }
         public DbSet<NhanXets> NhanXets { get; set; }
         public DbSet<NhaXes> NhaXes { get; set; }
         public DbSet<VeXes> VeXes { get; set; }
         public DbSet<Xes> Xes { get; set; }
+        public DbSet<TP_Cariage_API.Models.News> News { get; set; }
+        public DbSet<TP_Cariage_API.Models.TienIchCuaXes> TienIchCuaXes { get; set; }
+        public DbSet<TP_Cariage_API.Models.TienIchs> TienIchs { get; set; }
     }
 }

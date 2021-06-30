@@ -12,6 +12,7 @@ namespace TP_Cariage_API.Models
 
         public int Id { get; set; }
         public int TrangThai { get; set; }
+        public DateTime ThoiGianHuy { get; set; }
 
         public virtual Accounts Account { get; set; }
         public virtual ChuyenXes ChuyenXe { get; set; }
