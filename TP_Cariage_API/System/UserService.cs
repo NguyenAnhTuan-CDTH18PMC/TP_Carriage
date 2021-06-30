@@ -65,7 +65,9 @@ namespace TP_Cariage_API.System
                 TenKh = request.TenKh,
                 Cmnd = request.Cmnd,
                 UserName = request.Email,
-                DiaChi = request.DiaChi           
+                DiaChi = request.DiaChi   ,
+                GioiTinh=request.GioiTinh
+                
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
