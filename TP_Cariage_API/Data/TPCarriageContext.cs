@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +8,15 @@ using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Data
 {
-    public class TPCarriageContext:DbContext
+    public class TPCarriageContext:IdentityDbContext<Accounts>
     {
         public TPCarriageContext(DbContextOptions<TPCarriageContext> options) : base(options)
         {
         }
-        public DbSet<Accounts> Accounts { get; set; }
         public DbSet<BenXes> BenXes { get; set; }
         public DbSet<Chats> Chats { get; set; }
         public DbSet<ChiTietVes> ChiTietVes { get; set; }
-        public DbSet<ChuyenXes> ChuyenXes{ get; set; }
+        public DbSet<ChuyenXes> ChuyenXes { get; set; }
         public DbSet<DiaDiems> DiemDens { get; set; }
         public DbSet<Ghes> Ghes { get; set; }
         public DbSet<LichTrinhs> LichTrinhs { get; set; }

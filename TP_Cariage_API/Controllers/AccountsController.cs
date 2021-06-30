@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
+using TP_Cariage_API.System;
 
 namespace TP_Cariage_API.Controllers
 {
@@ -15,53 +19,62 @@ namespace TP_Cariage_API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly TPCarriageContext _context;
-
-        public AccountsController(TPCarriageContext context)
+        private readonly IUserService _userService;
+        private readonly UserManager<Accounts> _userManager;
+        public AccountsController(TPCarriageContext context, IUserService userService, UserManager<Accounts> userManager)
         {
+            _userService = userService;
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Accounts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Accounts>>> GetAccounts()
+        
+        [HttpGet("GetAllUsers")]  
+        [Authorize]
+        public async Task<IActionResult> GetAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
         }
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Accounts>> GetAccounts(int id)
+        public async Task<IActionResult> GetAccounts(string id)
         {
-            var accounts = await _context.Accounts.FindAsync(id);
+            var accounts = await _userManager.FindByIdAsync(id);
 
             if (accounts == null)
             {
                 return NotFound();
             }
 
-            return accounts;
+            return Ok(accounts);
         }
 
         // PUT: api/Accounts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccounts(int id, Accounts accounts)
+        public async Task<IActionResult> PutAccounts(string id, UserModel accounts)
         {
-            if (id != accounts.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(accounts).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                var user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    user.NamSinh = accounts.NamSinh;
+                    user.Cmnd = accounts.Cmnd;
+                    user.TenKh = accounts.TenKh;
+                    user.DiaChi = accounts.DiaChi;
+                    user.Password = accounts.Password;
+                    user.AnhDaiDien = accounts.AnhDaiDien;
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountsExists(id))
+                if (!AccountsExistsAsync(id).Result)
                 {
                     return NotFound();
                 }
@@ -78,33 +91,103 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Accounts>> PostAccounts(Accounts accounts)
+        public async Task<IActionResult> PostAccounts(UserModel request)
         {
-            _context.Accounts.Add(accounts);
-            await _context.SaveChangesAsync();
+            var userWithSameUserName = await _userManager.FindByEmailAsync(request.Email);
+            if (userWithSameUserName != null)
+            {
+                return Ok("Account have already");
+            }
+            var user = new Accounts()
+            {
+                Email = request.Email,
+                TenKh = request.TenKh,
+                Cmnd = request.Cmnd,
+                DiaChi = request.DiaChi,
+                NamSinh = request.NamSinh,
+                Quyen = request.Quyen,
+                NgayTaoTk = request.NgayTaoTk,
+                TrangThai = request.TrangThai,
+                Password = request.Password
 
-            return CreatedAtAction("GetAccounts", new { id = accounts.Id }, accounts);
+
+            };
+            var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
+            if (userWithSameEmail == null)
+            {
+                var result = await _userManager.CreateAsync(user, request.Password);
+                if (result.Succeeded)
+                {
+                    //Add roles
+                    await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
+                    return Ok(true);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            return BadRequest();
         }
 
         // DELETE: api/Accounts/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Accounts>> DeleteAccounts(int id)
+        public async Task<ActionResult<Accounts>> DeleteAccounts(string id)
         {
-            var accounts = await _context.Accounts.FindAsync(id);
+            var accounts = await _userManager.FindByIdAsync(id);
             if (accounts == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(accounts);
-            await _context.SaveChangesAsync();
+            await _userManager.DeleteAsync(accounts);
 
             return accounts;
         }
 
-        private bool AccountsExists(int id)
+        [HttpPost("Authenticate")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var resultToken = await _userService.Authencate(request);
+            if (string.IsNullOrEmpty(resultToken))
+            {
+                return BadRequest("email or password is incorrect");
+            }
+            return Ok(new { token = resultToken });
         }
+
+        [HttpPost("Register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var result = await _userService.Register(request);
+            if (!result)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+        private async Task<bool> AccountsExistsAsync(string id)
+        {
+            var accounts = await _userManager.FindByIdAsync(id);
+            if (accounts == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
     }
 }

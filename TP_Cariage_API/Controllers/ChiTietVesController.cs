@@ -115,7 +115,7 @@ namespace TP_Cariage_API.Controllers
         {
             var momoRequest = new MomoRequest();
             momoRequest.Amount = chiTietVes.GiaVe.ToString();
-            momoRequest.OrderInfo = chiTietVes.GhiChu;
+            momoRequest.OrderInfo = chiTietVes.GhiChu.ToString();
             var result = _MomoServices.PaymentRequeset(momoRequest);
             return Ok(result);
         }

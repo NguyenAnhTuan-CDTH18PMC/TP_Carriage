@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace TP_Cariage_API.Models
 {
-    public partial class Accounts
+    public partial class Accounts:IdentityUser
     {
         public Accounts()
         {
@@ -11,9 +12,6 @@ namespace TP_Cariage_API.Models
             NhanXets = new HashSet<NhanXets>();
             VeXes = new HashSet<VeXes>();
         }
-
-        public int Id { get; set; }
-        public string Email { get; set; }
         public string Password { get; set; }
         public string TenKh { get; set; }
         public string Cmnd { get; set; }

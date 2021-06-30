@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.cs" />
+    <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.Designer.cs" />
+    <Compile Remove="Migrations\20210629054200_update-database-lichtrinh-login-logout.cs" />
+    <Compile Remove="Migrations\20210629054200_update-database-lichtrinh-login-logout.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.15">
       <PrivateAssets>all</PrivateAssets>
