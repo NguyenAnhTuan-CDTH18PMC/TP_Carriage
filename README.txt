@@ -35,9 +35,30 @@ Xes
 Api Momo Request
 localhost/api/ChiTietVes/ThanhToan => POST (Tạo ra mã QR Code)
 => Body request gồm GiaVe và GhiChu
+Example Body
+{
+   "GiaVe":1000000,
+   "GhiChu":"Day la mot vi du"
+}
 
 
 Api tạo tk và đăng nhập
 localhost/api/Accounts/GetAllUsers ==> GET Lấy tất cả User
+
 localhost/api/Accounts/Register ==> POST (đăng kí tài khoản)
+Example Body
+{
+              "Email" : "nguyenhoaiphu123@gmail.com",
+              "Password":"Abcd@1234",
+              "ConfirmPassword" : "Abcd@1234",
+              "TenKh" : "Nguyễn Hoài Phú",
+              "Cmnd" : "277789654",
+              "DiaChi" : "quận Tân Bình",
+              "GioiTinh":1               
+}
 localhost/api/Accounts/Authenticate==> POST (Đăng nhập)
+Example Body
+{
+      "Email" : "nguyenhoaiphu123@gmail.com",
+      "Password":"Abcd@1234"
+}
