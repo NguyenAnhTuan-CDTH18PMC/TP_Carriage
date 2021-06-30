@@ -35,3 +35,9 @@ Xes
 Api Momo Request
 localhost/api/ChiTietVes/ThanhToan => POST (Tạo ra mã QR Code)
 => Body request gồm GiaVe và GhiChu
+
+
+Api tạo tk và đăng nhập
+localhost/api/Accounts/GetAllUsers ==> GET Lấy tất cả User
+localhost/api/Accounts/Register ==> POST (đăng kí tài khoản)
+localhost/api/Accounts/Authenticate==> POST (Đăng nhập)
