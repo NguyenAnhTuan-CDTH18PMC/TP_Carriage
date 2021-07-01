@@ -20,7 +20,8 @@ namespace TP_Cariage_API.Models
         public string MoTa { get; set; }
         public int TrangThai { get; set; }
 
-        public virtual BenXes BenXe { get; set; }
+        public int BenXeId { get; set; }
+        public virtual BenXes BenXes { get; set; }
         public virtual ICollection<Chats> Chats { get; set; }
         public virtual ICollection<NhanXets> NhanXets { get; set; }
         public virtual ICollection<Xes> Xes { get; set; }
