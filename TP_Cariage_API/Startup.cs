@@ -46,7 +46,8 @@ namespace TP_Cariage_API
            // services.AddTransient<IUserService, UserService>();
             services.AddDbContext<TPCarriageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TP_Carriage_API")))
                 .AddIdentity<Accounts,IdentityRole>()
-                .AddEntityFrameworkStores<TPCarriageContext>();
+                .AddEntityFrameworkStores<TPCarriageContext>()
+                .AddDefaultTokenProviders();
 
              services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                       .AddCookie(x =>

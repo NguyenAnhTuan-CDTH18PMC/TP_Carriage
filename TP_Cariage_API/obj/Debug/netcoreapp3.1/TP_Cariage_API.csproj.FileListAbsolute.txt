@@ -168,3 +168,6 @@ C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.genruntimeconfig.cache
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.csprojAssemblyReference.cache
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Debug\netcoreapp3.1\System.Web.Http.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

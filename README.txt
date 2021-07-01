@@ -1,7 +1,16 @@
 -Các bước trước khi chạy Code
 Bước 1 : Thay đổi connectionString trong appstring
 Bước 2: Chạy lệnh update-database trong Package Manager Console
-Done --> Dưới SQL có Database là TP_Carriage_API. Sau đó chạy code lên để lấy API.
+Done --> Dưới SQL có Database là TP_Carriage_API. 
+Vô SQL chạy câu query
+USE [TP_Carriage_API]
+GO
+INSERT [AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'15fc3751-2ad4-4784-8ca3-e479d5e69dc5', N'SuperAdmin', N'SUPERADMIN', N'84b8a7a8-b1ea-4ee7-979d-1533c737f485')
+INSERT [AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'4d843441-16b6-4e0f-b9a4-e067d271573b', N'Admin', N'ADMIN', N'537d537e-f673-48be-bcde-d72e7fdf5be4')
+INSERT [AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'82fd4939-8534-4adb-80b2-222f1d60784c', N'Basic', N'BASIC', N'54a7c772-0853-4c68-8ba1-c0456e431aa8')
+INSERT [AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'93112122-61f4-4582-a582-bd399f35098c', N'Moderator', N'MODERATOR', N'6df06996-9be9-42aa-9543-8b29f0413c96')
+GO
+Sau đó chạy code lên để lấy API.
 
 
 localhost/api/Accounts => GET (Lấy danh sách)

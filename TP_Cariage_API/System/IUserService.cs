@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TP_Cariage_API.SendMail;
 
 namespace TP_Cariage_API.System
 {
@@ -9,5 +11,7 @@ namespace TP_Cariage_API.System
     {
         Task<string> Authencate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
+         Task<bool> SendMail(EmailRequest emailRequest);
+        Task<ContentResult> ConfirmEmail(string userId, string code);
     }
 }

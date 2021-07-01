@@ -153,10 +153,14 @@ namespace TP_Cariage_API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var resultToken = await _userService.Authencate(request);
+            var resultToken = await _userService.Authencate(request);          
             if (string.IsNullOrEmpty(resultToken))
             {
                 return BadRequest("email or password is incorrect");
+            }
+            if(string.Equals(resultToken, "Email chưa được xác thực"))
+            {
+                return Unauthorized("Email chưa được xác thực");
             }
             return Ok(new { token = resultToken });
         }
@@ -169,17 +173,30 @@ namespace TP_Cariage_API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _userService.Register(request);
-            if (!result)
+            if ( !await AccountsExistsAsync(request.Email))
             {
-                return BadRequest();
+                var result = await _userService.Register(request);
+                if (!result)
+                {
+                    return BadRequest();
+                }
+                return Ok("Vui lòng kiểm tra email để xác nhận tài khoản");
             }
-            return Ok();
+            else
+            {
+                return BadRequest("Email đã tồn tại");
+            }
+          
         }
 
-        private async Task<bool> AccountsExistsAsync(string id)
+        [HttpGet("confirm-email")]
+        public async Task<ContentResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string code)
         {
-            var accounts = await _userManager.FindByIdAsync(id);
+            return await _userService.ConfirmEmail(userId, code);
+        }
+        private async Task<bool> AccountsExistsAsync(string email)
+        {
+            var accounts = await _userManager.FindByEmailAsync(email);
             if (accounts == null)
             {
                 return false;
