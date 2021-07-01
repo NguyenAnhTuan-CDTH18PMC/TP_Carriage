@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TP_Cariage_API.Migrations
 {
-    public partial class updatedatabaselichtrinhloginlogout : Migration
+    public partial class createdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,7 @@ namespace TP_Cariage_API.Migrations
                     NamSinh = table.Column<DateTime>(nullable: false),
                     Quyen = table.Column<int>(nullable: false),
                     NgayTaoTk = table.Column<DateTime>(nullable: false),
+                    GioiTinh = table.Column<int>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -78,11 +79,10 @@ namespace TP_Cariage_API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenDiemDi = table.Column<string>(nullable: true),
+                    TenDiaDiem = table.Column<string>(nullable: true),
                     HinhAnh = table.Column<string>(nullable: true),
                     DiaChi = table.Column<string>(nullable: true),
-                    Mota = table.Column<string>(nullable: true),
-                    TrangThai = table.Column<int>(nullable: false)
+                    Mota = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,13 +95,75 @@ namespace TP_Cariage_API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GiaGhe = table.Column<decimal>(nullable: false),
+                    TenLoai = table.Column<string>(nullable: true),
+                    HinhAnh = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoaiGhes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messagegroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenGroup = table.Column<string>(nullable: true),
+                    IsSeen = table.Column<bool>(nullable: false),
+                    IsReceved = table.Column<bool>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messagegroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descreption = table.Column<string>(nullable: true),
+                    IsSeen = table.Column<bool>(nullable: false),
+                    IsReceved = table.Column<bool>(nullable: false),
+                    IsDelete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
                     HinhAnh = table.Column<string>(nullable: true),
                     TrangThai = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoaiGhes", x => x.Id);
+                    table.PrimaryKey("PK_News", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TienIchs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenTienIch = table.Column<string>(nullable: true),
+                    MoTa = table.Column<string>(nullable: true),
+                    HinhAnh = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TienIchs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,14 +284,15 @@ namespace TP_Cariage_API.Migrations
                     SoLuongXe = table.Column<int>(nullable: false),
                     MoTa = table.Column<string>(nullable: true),
                     TrangThai = table.Column<int>(nullable: false),
-                    BenXeId = table.Column<int>(nullable: true)
+                    BenXeId = table.Column<int>(nullable: false),
+                    BenXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NhaXes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NhaXes_BenXes_BenXeId",
-                        column: x => x.BenXeId,
+                        name: "FK_NhaXes_BenXes_BenXesId",
+                        column: x => x.BenXesId,
                         principalTable: "BenXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -245,14 +308,15 @@ namespace TP_Cariage_API.Migrations
                     KhoangCach = table.Column<int>(nullable: false),
                     ThoiGianUocTinh = table.Column<int>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
-                    DiaDiemId = table.Column<int>(nullable: true)
+                    DiaDiemId = table.Column<int>(nullable: false),
+                    DiaDiemsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LichTrinhs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LichTrinhs_DiemDens_DiaDiemId",
-                        column: x => x.DiaDiemId,
+                        name: "FK_LichTrinhs_DiemDens_DiaDiemsId",
+                        column: x => x.DiaDiemsId,
                         principalTable: "DiemDens",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -265,21 +329,22 @@ namespace TP_Cariage_API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrangThai = table.Column<int>(nullable: false),
-                    AccountId = table.Column<string>(nullable: true),
-                    NhaXeId = table.Column<int>(nullable: true)
+                    NhaXeId = table.Column<int>(nullable: false),
+                    NhaXesId = table.Column<int>(nullable: true),
+                    AccountsId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chats_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_Chats_AspNetUsers_AccountsId",
+                        column: x => x.AccountsId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Chats_NhaXes_NhaXeId",
-                        column: x => x.NhaXeId,
+                        name: "FK_Chats_NhaXes_NhaXesId",
+                        column: x => x.NhaXesId,
                         principalTable: "NhaXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -294,21 +359,23 @@ namespace TP_Cariage_API.Migrations
                     NoiDungNhanXet = table.Column<string>(nullable: true),
                     NgayNhanXet = table.Column<DateTime>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
-                    AccountId = table.Column<string>(nullable: true),
-                    NhaXeId = table.Column<int>(nullable: true)
+                    AccountId = table.Column<int>(nullable: false),
+                    AccountsId = table.Column<string>(nullable: true),
+                    NhaXeId = table.Column<int>(nullable: false),
+                    NhaXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NhanXets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NhanXets_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_NhanXets_AspNetUsers_AccountsId",
+                        column: x => x.AccountsId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_NhanXets_NhaXes_NhaXeId",
-                        column: x => x.NhaXeId,
+                        name: "FK_NhanXets_NhaXes_NhaXesId",
+                        column: x => x.NhaXesId,
                         principalTable: "NhaXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -321,44 +388,31 @@ namespace TP_Cariage_API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HinhAnh = table.Column<string>(nullable: true),
-                    TenXe = table.Column<string>(nullable: true),
+                    BienSoXe = table.Column<string>(nullable: true),
                     GiaGhe = table.Column<decimal>(nullable: false),
                     LoaiXe = table.Column<int>(nullable: false),
                     SoLuongHang = table.Column<int>(nullable: false),
                     SoLuongCot = table.Column<int>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
-                    NhaXeId = table.Column<int>(nullable: true)
+                    MaTienIch = table.Column<int>(nullable: false),
+                    NhaXeId = table.Column<int>(nullable: false),
+                    NhaXesId = table.Column<int>(nullable: true),
+                    LoaiXeId = table.Column<int>(nullable: false),
+                    LoaiXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Xes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Xes_NhaXes_NhaXeId",
-                        column: x => x.NhaXeId,
-                        principalTable: "NhaXes",
+                        name: "FK_Xes_LoaiGhes_LoaiXesId",
+                        column: x => x.LoaiXesId,
+                        principalTable: "LoaiGhes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messagegroups",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TenGroup = table.Column<string>(nullable: true),
-                    IsSeen = table.Column<bool>(nullable: false),
-                    IsReceved = table.Column<bool>(nullable: false),
-                    IsDelete = table.Column<bool>(nullable: false),
-                    ChatId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messagegroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messagegroups_Chats_ChatId",
-                        column: x => x.ChatId,
-                        principalTable: "Chats",
+                        name: "FK_Xes_NhaXes_NhaXesId",
+                        column: x => x.NhaXesId,
+                        principalTable: "NhaXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -370,24 +424,26 @@ namespace TP_Cariage_API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NgayKhoiHanh = table.Column<DateTime>(nullable: false),
-                    GioKhoiHanh = table.Column<DateTime>(nullable: false),
-                    ThoiGianDen = table.Column<DateTime>(nullable: false),
+                    GioKhoiHanh = table.Column<string>(nullable: true),
+                    ThoiGianDen = table.Column<string>(nullable: true),
                     TrangThai = table.Column<int>(nullable: false),
-                    LichTrinhId = table.Column<int>(nullable: true),
-                    XeId = table.Column<int>(nullable: true)
+                    LichTrinhId = table.Column<int>(nullable: false),
+                    LichTrinhsId = table.Column<int>(nullable: true),
+                    XeId = table.Column<int>(nullable: false),
+                    XesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChuyenXes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ChuyenXes_LichTrinhs_LichTrinhId",
-                        column: x => x.LichTrinhId,
+                        name: "FK_ChuyenXes_LichTrinhs_LichTrinhsId",
+                        column: x => x.LichTrinhsId,
                         principalTable: "LichTrinhs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ChuyenXes_Xes_XeId",
-                        column: x => x.XeId,
+                        name: "FK_ChuyenXes_Xes_XesId",
+                        column: x => x.XesId,
                         principalTable: "Xes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -402,45 +458,44 @@ namespace TP_Cariage_API.Migrations
                     SoHang = table.Column<int>(nullable: false),
                     SoCot = table.Column<int>(nullable: false),
                     TrangThai = table.Column<string>(nullable: true),
-                    LoaiGheId = table.Column<int>(nullable: true),
-                    XeId = table.Column<int>(nullable: true)
+                    XeId = table.Column<int>(nullable: false),
+                    XesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ghes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ghes_LoaiGhes_LoaiGheId",
-                        column: x => x.LoaiGheId,
-                        principalTable: "LoaiGhes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ghes_Xes_XeId",
-                        column: x => x.XeId,
+                        name: "FK_Ghes_Xes_XesId",
+                        column: x => x.XesId,
                         principalTable: "Xes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
+                name: "TienIchCuaXes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Descreption = table.Column<string>(nullable: true),
-                    IsSeen = table.Column<bool>(nullable: false),
-                    IsReceved = table.Column<bool>(nullable: false),
-                    IsDelete = table.Column<bool>(nullable: false),
-                    MessagegroupId = table.Column<int>(nullable: true)
+                    XeId = table.Column<int>(nullable: false),
+                    XesId = table.Column<int>(nullable: true),
+                    TienIchId = table.Column<int>(nullable: false),
+                    TienIchsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.PrimaryKey("PK_TienIchCuaXes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_Messagegroups_MessagegroupId",
-                        column: x => x.MessagegroupId,
-                        principalTable: "Messagegroups",
+                        name: "FK_TienIchCuaXes_TienIchs_TienIchsId",
+                        column: x => x.TienIchsId,
+                        principalTable: "TienIchs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TienIchCuaXes_Xes_XesId",
+                        column: x => x.XesId,
+                        principalTable: "Xes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -452,21 +507,24 @@ namespace TP_Cariage_API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrangThai = table.Column<int>(nullable: false),
-                    AccountId = table.Column<string>(nullable: true),
-                    ChuyenXeId = table.Column<int>(nullable: true)
+                    ThoiGianHuy = table.Column<DateTime>(nullable: false),
+                    AccountId = table.Column<int>(nullable: false),
+                    AccountsId = table.Column<string>(nullable: true),
+                    ChuyenXeId = table.Column<int>(nullable: false),
+                    ChuyenXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VeXes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VeXes_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_VeXes_AspNetUsers_AccountsId",
+                        column: x => x.AccountsId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_VeXes_ChuyenXes_ChuyenXeId",
-                        column: x => x.ChuyenXeId,
+                        name: "FK_VeXes_ChuyenXes_ChuyenXesId",
+                        column: x => x.ChuyenXesId,
                         principalTable: "ChuyenXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -480,8 +538,8 @@ namespace TP_Cariage_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GhiChu = table.Column<string>(nullable: true),
                     GiaVe = table.Column<decimal>(nullable: false),
-                    GheId = table.Column<int>(nullable: true),
-                    VeXeId = table.Column<int>(nullable: true)
+                    GheId = table.Column<int>(nullable: false),
+                    VeXeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -491,13 +549,13 @@ namespace TP_Cariage_API.Migrations
                         column: x => x.GheId,
                         principalTable: "Ghes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChiTietVes_VeXes_VeXeId",
                         column: x => x.VeXeId,
                         principalTable: "VeXes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -540,14 +598,14 @@ namespace TP_Cariage_API.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chats_AccountId",
+                name: "IX_Chats_AccountsId",
                 table: "Chats",
-                column: "AccountId");
+                column: "AccountsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chats_NhaXeId",
+                name: "IX_Chats_NhaXesId",
                 table: "Chats",
-                column: "NhaXeId");
+                column: "NhaXesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietVes_GheId",
@@ -560,69 +618,69 @@ namespace TP_Cariage_API.Migrations
                 column: "VeXeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChuyenXes_LichTrinhId",
+                name: "IX_ChuyenXes_LichTrinhsId",
                 table: "ChuyenXes",
-                column: "LichTrinhId");
+                column: "LichTrinhsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChuyenXes_XeId",
+                name: "IX_ChuyenXes_XesId",
                 table: "ChuyenXes",
-                column: "XeId");
+                column: "XesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ghes_LoaiGheId",
+                name: "IX_Ghes_XesId",
                 table: "Ghes",
-                column: "LoaiGheId");
+                column: "XesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ghes_XeId",
-                table: "Ghes",
-                column: "XeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LichTrinhs_DiaDiemId",
+                name: "IX_LichTrinhs_DiaDiemsId",
                 table: "LichTrinhs",
-                column: "DiaDiemId");
+                column: "DiaDiemsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messagegroups_ChatId",
-                table: "Messagegroups",
-                column: "ChatId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_MessagegroupId",
-                table: "Messages",
-                column: "MessagegroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NhanXets_AccountId",
+                name: "IX_NhanXets_AccountsId",
                 table: "NhanXets",
-                column: "AccountId");
+                column: "AccountsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NhanXets_NhaXeId",
+                name: "IX_NhanXets_NhaXesId",
                 table: "NhanXets",
-                column: "NhaXeId");
+                column: "NhaXesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NhaXes_BenXeId",
+                name: "IX_NhaXes_BenXesId",
                 table: "NhaXes",
-                column: "BenXeId");
+                column: "BenXesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VeXes_AccountId",
+                name: "IX_TienIchCuaXes_TienIchsId",
+                table: "TienIchCuaXes",
+                column: "TienIchsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TienIchCuaXes_XesId",
+                table: "TienIchCuaXes",
+                column: "XesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VeXes_AccountsId",
                 table: "VeXes",
-                column: "AccountId");
+                column: "AccountsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VeXes_ChuyenXeId",
+                name: "IX_VeXes_ChuyenXesId",
                 table: "VeXes",
-                column: "ChuyenXeId");
+                column: "ChuyenXesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Xes_NhaXeId",
+                name: "IX_Xes_LoaiXesId",
                 table: "Xes",
-                column: "NhaXeId");
+                column: "LoaiXesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Xes_NhaXesId",
+                table: "Xes",
+                column: "NhaXesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -643,13 +701,25 @@ namespace TP_Cariage_API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Chats");
+
+            migrationBuilder.DropTable(
                 name: "ChiTietVes");
+
+            migrationBuilder.DropTable(
+                name: "Messagegroups");
 
             migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
+                name: "News");
+
+            migrationBuilder.DropTable(
                 name: "NhanXets");
+
+            migrationBuilder.DropTable(
+                name: "TienIchCuaXes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -661,16 +731,13 @@ namespace TP_Cariage_API.Migrations
                 name: "VeXes");
 
             migrationBuilder.DropTable(
-                name: "Messagegroups");
+                name: "TienIchs");
 
             migrationBuilder.DropTable(
-                name: "LoaiGhes");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "ChuyenXes");
-
-            migrationBuilder.DropTable(
-                name: "Chats");
 
             migrationBuilder.DropTable(
                 name: "LichTrinhs");
@@ -679,10 +746,10 @@ namespace TP_Cariage_API.Migrations
                 name: "Xes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "DiemDens");
 
             migrationBuilder.DropTable(
-                name: "DiemDens");
+                name: "LoaiGhes");
 
             migrationBuilder.DropTable(
                 name: "NhaXes");

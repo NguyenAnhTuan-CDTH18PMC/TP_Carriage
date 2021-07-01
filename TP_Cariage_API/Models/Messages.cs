@@ -11,6 +11,5 @@ namespace TP_Cariage_API.Models
         public bool IsReceved { get; set; }
         public bool IsDelete { get; set; }
 
-        public virtual Messagegroups Messagegroup { get; set; }
     }
 }

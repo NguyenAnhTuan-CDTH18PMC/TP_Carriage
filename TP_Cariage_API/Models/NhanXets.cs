@@ -10,7 +10,9 @@ namespace TP_Cariage_API.Models
         public DateTime NgayNhanXet { get; set; }
         public int TrangThai { get; set; }
 
-        public virtual Accounts Account { get; set; }
-        public virtual NhaXes NhaXe { get; set; }
+        public int AccountId { get; set; }
+        public virtual Accounts Accounts { get; set; }
+        public int NhaXeId { get; set; }
+        public virtual NhaXes NhaXes { get; set; }
     }
 }

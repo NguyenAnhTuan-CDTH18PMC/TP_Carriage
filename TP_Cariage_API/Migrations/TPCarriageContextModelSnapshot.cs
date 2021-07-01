@@ -279,10 +279,13 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountId")
+                    b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("NhaXeId")
+                    b.Property<int>("NhaXeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NhaXesId")
                         .HasColumnType("int");
 
                     b.Property<int>("TrangThai")
@@ -290,9 +293,9 @@ namespace TP_Cariage_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountsId");
 
-                    b.HasIndex("NhaXeId");
+                    b.HasIndex("NhaXesId");
 
                     b.ToTable("Chats");
                 });
@@ -304,7 +307,7 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("GheId")
+                    b.Property<int>("GheId")
                         .HasColumnType("int");
 
                     b.Property<string>("GhiChu")
@@ -313,7 +316,7 @@ namespace TP_Cariage_API.Migrations
                     b.Property<decimal>("GiaVe")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("VeXeId")
+                    b.Property<int>("VeXeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -335,7 +338,10 @@ namespace TP_Cariage_API.Migrations
                     b.Property<string>("GioKhoiHanh")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LichTrinhId")
+                    b.Property<int>("LichTrinhId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LichTrinhsId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayKhoiHanh")
@@ -347,14 +353,17 @@ namespace TP_Cariage_API.Migrations
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
-                    b.Property<int?>("XeId")
+                    b.Property<int>("XeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("XesId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LichTrinhId");
+                    b.HasIndex("LichTrinhsId");
 
-                    b.HasIndex("XeId");
+                    b.HasIndex("XesId");
 
                     b.ToTable("ChuyenXes");
                 });
@@ -399,12 +408,15 @@ namespace TP_Cariage_API.Migrations
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("XeId")
+                    b.Property<int>("XeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("XesId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("XeId");
+                    b.HasIndex("XesId");
 
                     b.ToTable("Ghes");
                 });
@@ -415,6 +427,9 @@ namespace TP_Cariage_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DiaDiemId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DiaDiemsId")
                         .HasColumnType("int");
@@ -463,9 +478,6 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ChatId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -479,8 +491,6 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
 
                     b.ToTable("Messagegroups");
                 });
@@ -504,14 +514,33 @@ namespace TP_Cariage_API.Migrations
                     b.Property<bool>("IsSeen")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MessagegroupId")
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("TP_Cariage_API.Models.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HinhAnh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MessagegroupId");
-
-                    b.ToTable("Messages");
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.NhaXes", b =>
@@ -521,7 +550,10 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BenXeId")
+                    b.Property<int>("BenXeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BenXesId")
                         .HasColumnType("int");
 
                     b.Property<string>("DiaChi")
@@ -544,7 +576,7 @@ namespace TP_Cariage_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BenXeId");
+                    b.HasIndex("BenXesId");
 
                     b.ToTable("NhaXes");
                 });
@@ -556,13 +588,19 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountId")
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("NgayNhanXet")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("NhaXeId")
+                    b.Property<int>("NhaXeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NhaXesId")
                         .HasColumnType("int");
 
                     b.Property<string>("NoiDungNhanXet")
@@ -573,9 +611,9 @@ namespace TP_Cariage_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountsId");
 
-                    b.HasIndex("NhaXeId");
+                    b.HasIndex("NhaXesId");
 
                     b.ToTable("NhanXets");
                 });
@@ -587,7 +625,13 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("TienIchId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TienIchsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("XeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("XesId")
@@ -630,10 +674,16 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountId")
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ChuyenXeId")
+                    b.Property<int>("ChuyenXeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ChuyenXesId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ThoiGianHuy")
@@ -644,9 +694,9 @@ namespace TP_Cariage_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountsId");
 
-                    b.HasIndex("ChuyenXeId");
+                    b.HasIndex("ChuyenXesId");
 
                     b.ToTable("VeXes");
                 });
@@ -670,13 +720,19 @@ namespace TP_Cariage_API.Migrations
                     b.Property<int>("LoaiXe")
                         .HasColumnType("int");
 
+                    b.Property<int>("LoaiXeId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("LoaiXesId")
                         .HasColumnType("int");
 
                     b.Property<int>("MaTienIch")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NhaXeId")
+                    b.Property<int>("NhaXeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NhaXesId")
                         .HasColumnType("int");
 
                     b.Property<int>("SoLuongCot")
@@ -692,7 +748,7 @@ namespace TP_Cariage_API.Migrations
 
                     b.HasIndex("LoaiXesId");
 
-                    b.HasIndex("NhaXeId");
+                    b.HasIndex("NhaXesId");
 
                     b.ToTable("Xes");
                 });
@@ -750,42 +806,46 @@ namespace TP_Cariage_API.Migrations
 
             modelBuilder.Entity("TP_Cariage_API.Models.Chats", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.Accounts", "Account")
+                    b.HasOne("TP_Cariage_API.Models.Accounts", null)
                         .WithMany("Chats")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountsId");
 
-                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXe")
+                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXes")
                         .WithMany("Chats")
-                        .HasForeignKey("NhaXeId");
+                        .HasForeignKey("NhaXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.ChiTietVes", b =>
                 {
                     b.HasOne("TP_Cariage_API.Models.Ghes", "Ghe")
                         .WithMany("ChiTietVes")
-                        .HasForeignKey("GheId");
+                        .HasForeignKey("GheId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TP_Cariage_API.Models.VeXes", "VeXe")
                         .WithMany("ChiTietVes")
-                        .HasForeignKey("VeXeId");
+                        .HasForeignKey("VeXeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.ChuyenXes", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.LichTrinhs", "LichTrinh")
+                    b.HasOne("TP_Cariage_API.Models.LichTrinhs", "LichTrinhs")
                         .WithMany("ChuyenXes")
-                        .HasForeignKey("LichTrinhId");
+                        .HasForeignKey("LichTrinhsId");
 
-                    b.HasOne("TP_Cariage_API.Models.Xes", "Xe")
+                    b.HasOne("TP_Cariage_API.Models.Xes", "Xes")
                         .WithMany("ChuyenXes")
-                        .HasForeignKey("XeId");
+                        .HasForeignKey("XesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.Ghes", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.Xes", "Xe")
+                    b.HasOne("TP_Cariage_API.Models.Xes", null)
                         .WithMany("Ghes")
-                        .HasForeignKey("XeId");
+                        .HasForeignKey("XesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.LichTrinhs", b =>
@@ -795,36 +855,22 @@ namespace TP_Cariage_API.Migrations
                         .HasForeignKey("DiaDiemsId");
                 });
 
-            modelBuilder.Entity("TP_Cariage_API.Models.Messagegroups", b =>
-                {
-                    b.HasOne("TP_Cariage_API.Models.Chats", "Chat")
-                        .WithMany("Messagegroups")
-                        .HasForeignKey("ChatId");
-                });
-
-            modelBuilder.Entity("TP_Cariage_API.Models.Messages", b =>
-                {
-                    b.HasOne("TP_Cariage_API.Models.Messagegroups", "Messagegroup")
-                        .WithMany("Messages")
-                        .HasForeignKey("MessagegroupId");
-                });
-
             modelBuilder.Entity("TP_Cariage_API.Models.NhaXes", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.BenXes", "BenXe")
+                    b.HasOne("TP_Cariage_API.Models.BenXes", "BenXes")
                         .WithMany("NhaXes")
-                        .HasForeignKey("BenXeId");
+                        .HasForeignKey("BenXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.NhanXets", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.Accounts", "Account")
+                    b.HasOne("TP_Cariage_API.Models.Accounts", "Accounts")
                         .WithMany("NhanXets")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountsId");
 
-                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXe")
+                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXes")
                         .WithMany("NhanXets")
-                        .HasForeignKey("NhaXeId");
+                        .HasForeignKey("NhaXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.TienIchCuaXes", b =>
@@ -840,13 +886,13 @@ namespace TP_Cariage_API.Migrations
 
             modelBuilder.Entity("TP_Cariage_API.Models.VeXes", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.Accounts", "Account")
+                    b.HasOne("TP_Cariage_API.Models.Accounts", "Accounts")
                         .WithMany("VeXes")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountsId");
 
-                    b.HasOne("TP_Cariage_API.Models.ChuyenXes", "ChuyenXe")
+                    b.HasOne("TP_Cariage_API.Models.ChuyenXes", "ChuyenXes")
                         .WithMany("VeXes")
-                        .HasForeignKey("ChuyenXeId");
+                        .HasForeignKey("ChuyenXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.Xes", b =>
@@ -855,9 +901,9 @@ namespace TP_Cariage_API.Migrations
                         .WithMany("Xes")
                         .HasForeignKey("LoaiXesId");
 
-                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXe")
+                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXes")
                         .WithMany("Xes")
-                        .HasForeignKey("NhaXeId");
+                        .HasForeignKey("NhaXesId");
                 });
 #pragma warning restore 612, 618
         }

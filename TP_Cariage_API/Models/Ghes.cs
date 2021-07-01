@@ -15,8 +15,7 @@ namespace TP_Cariage_API.Models
         public int SoCot { get; set; }
         public string TrangThai { get; set; }
 
-
-        public virtual Xes Xe { get; set; }
+        public int XeId { get; set; }
         public virtual ICollection<ChiTietVes> ChiTietVes { get; set; }
     }
 }

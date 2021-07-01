@@ -16,8 +16,10 @@ namespace TP_Cariage_API.Models
         public string ThoiGianDen { get; set; }
         public int TrangThai { get; set; }
 
-        public virtual LichTrinhs LichTrinh { get; set; }
-        public virtual Xes Xe { get; set; }
+        public int LichTrinhId { get; set; }
+        public virtual LichTrinhs LichTrinhs { get; set; }
+        public int XeId { get; set; }
+        public virtual Xes Xes { get; set; }
         public virtual ICollection<VeXes> VeXes { get; set; }
     }
 }
