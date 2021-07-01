@@ -135,7 +135,13 @@ namespace TP_Cariage_API.System
                 {
                     ContentType = "text/html",
                     StatusCode = (int)HttpStatusCode.OK,
-                    Content = "<html><body><h1>Confirmed Success</h1><br><a href='https://localhost:44330/weatherforecast'>Go back to Login </a></body></html>"
+                    Content = "<html><body>"
+                    + "<meta charset =utf-8>"
+                    + "<h1 style=color:#25D366><center><img width=20 height=20 src=https://cachbothuocla.vn/wp-content/uploads/2019/03/tick-xanh.png>" + "Bạn đã xác thực thành công</center></h1>"
+                    + "<span><center><strong>" + user.TenKh.ToString() + " đã trở thành thành viên của TP_Carriage</strong></center></span>"
+                    + "<span><center><strong>TP_Carriage xin cảm ơn</strong></center></span>"
+                    + "<center><img height=500 width=800 src=https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-%E1%BA%A3nh-c%E1%BA%A3m-%C6%A1n.jpg>" + "</center>"
+                + "</body></html>"
                 };
             }
             else
@@ -144,7 +150,12 @@ namespace TP_Cariage_API.System
                 {
                     ContentType = "text/html",
                     StatusCode = (int)HttpStatusCode.OK,
-                    Content = "<html><body><h1>Confirmed Failed</h1><br><a href='https://localhost:44330/weatherforecast'>Back to Home</a></body></html>"
+                    Content = "<html><body>"
+                    + "<meta charset =utf-8>"
+                    + "<h1 style=color:#25D366><center><img width=20 height=20 src=https://icon2.cleanpng.com/20180529/zic/kisspng-desktop-wallpaper-computer-icons-clip-art-red-x-5b0dc6f9aaa3e0.188420681527629561699.jpg>" + "Bạn đã xác thực thất bại</center></h1>"
+                    + "<span><center><strong>" + user.TenKh.ToString() + "hãy thử lại nhé</strong></center></span>"
+                    + "<center><img height=500 width=800 src=https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-%E1%BA%A3nh-c%E1%BA%A3m-%C6%A1n.jpg>" + "</center>"
+                + "</body></html>"
                 };
             }
         }
