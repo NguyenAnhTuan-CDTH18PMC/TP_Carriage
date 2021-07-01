@@ -89,8 +89,8 @@ namespace TP_Cariage_API.System
                 var sendEmail = await SendMail(new EmailRequest
                 {
                     To = request.Email,
-                    Subject = "Đây là email xác thực tài khoản",
-                    Body = "Mã xác thực của bạn là : " + verify
+                    Subject = "Đây là email xác thực tài khoản từ TP_Carriage",
+                    Body = "Hãy nhấp vào link sau đây để xác thực tài khoản : " + verify
 
                 });;
                 return true;
