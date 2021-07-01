@@ -6,8 +6,8 @@ Done --> Dưới SQL có Database là TP_Carriage_API. Sau đó chạy code lên
 
 localhost/api/Accounts => GET (Lấy danh sách)
 localhost/api/Accounts/{id} => GET (Lấy 1 đối tượng theo id)
-localhost/api/Accounts/{id} => PUT (Thêm 1 đối tượng)
-localhost/api/Accounts => POST (Update)
+localhost/api/Accounts/{id} => POST(Thêm 1 đối tượng)
+localhost/api/Accounts => PUT (Update)
 localhost/api/Accounts/{id} => DELETE (Xóa 1 đối tượng)
 
 
