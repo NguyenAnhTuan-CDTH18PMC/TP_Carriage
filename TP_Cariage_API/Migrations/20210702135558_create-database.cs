@@ -359,7 +359,7 @@ namespace TP_Cariage_API.Migrations
                     NoiDungNhanXet = table.Column<string>(nullable: true),
                     NgayNhanXet = table.Column<DateTime>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false),
+                    AccountId = table.Column<string>(nullable: true),
                     AccountsId = table.Column<string>(nullable: true),
                     NhaXeId = table.Column<int>(nullable: false),
                     NhaXesId = table.Column<int>(nullable: true)
@@ -508,7 +508,7 @@ namespace TP_Cariage_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TrangThai = table.Column<int>(nullable: false),
                     ThoiGianHuy = table.Column<DateTime>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false),
+                    AccountId = table.Column<string>(nullable: true),
                     AccountsId = table.Column<string>(nullable: true),
                     ChuyenXeId = table.Column<string>(nullable: true),
                     ChuyenXesId = table.Column<int>(nullable: true)

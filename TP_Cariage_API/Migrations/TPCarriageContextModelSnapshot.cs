@@ -594,8 +594,8 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
@@ -680,8 +680,8 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");

@@ -40,6 +40,7 @@ namespace TP_Cariage_API.Controllers
             chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
             chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
             chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+            chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
             chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
             veXes.ChuyenXes = chuyenXes;
             veXes.Accounts = await _userManager.FindByIdAsync(veXes.AccountId.ToString());

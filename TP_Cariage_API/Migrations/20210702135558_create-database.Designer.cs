@@ -10,7 +10,7 @@ using TP_Cariage_API.Data;
 namespace TP_Cariage_API.Migrations
 {
     [DbContext(typeof(TPCarriageContext))]
-    [Migration("20210702133312_create-database")]
+    [Migration("20210702135558_create-database")]
     partial class createdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -596,8 +596,8 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
@@ -682,8 +682,8 @@ namespace TP_Cariage_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
