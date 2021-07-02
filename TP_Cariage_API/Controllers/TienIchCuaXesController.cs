@@ -33,7 +33,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<TienIchCuaXes>> GetTienIchCuaXes(int id)
         {
             var tienIchCuaXes = await _context.TienIchCuaXes.FindAsync(id);
-
+            tienIchCuaXes.Xes = await _context.Xes.FindAsync(tienIchCuaXes.XeId);
+            tienIchCuaXes.TienIchs = await _context.TienIchs.FindAsync(tienIchCuaXes.TienIchId);
             if (tienIchCuaXes == null)
             {
                 return NotFound();

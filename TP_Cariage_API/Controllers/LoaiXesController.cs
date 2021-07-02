@@ -23,16 +23,16 @@ namespace TP_Cariage_API.Controllers
 
         // GET: api/LoaiXes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiXes>>> GetLoaiGhes()
+        public async Task<ActionResult<IEnumerable<LoaiXes>>> GetLoaiXes()
         {
-            return await _context.LoaiGhes.ToListAsync();
+            return await _context.LoaiXes.ToListAsync();
         }
 
         // GET: api/LoaiXes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<LoaiXes>> GetLoaiXes(int id)
         {
-            var loaiXes = await _context.LoaiGhes.FindAsync(id);
+            var loaiXes = await _context.LoaiXes.FindAsync(id);
 
             if (loaiXes == null)
             {
@@ -80,7 +80,7 @@ namespace TP_Cariage_API.Controllers
         [HttpPost]
         public async Task<ActionResult<LoaiXes>> PostLoaiXes(LoaiXes loaiXes)
         {
-            _context.LoaiGhes.Add(loaiXes);
+            _context.LoaiXes.Add(loaiXes);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLoaiXes", new { id = loaiXes.Id }, loaiXes);
@@ -90,13 +90,13 @@ namespace TP_Cariage_API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<LoaiXes>> DeleteLoaiXes(int id)
         {
-            var loaiXes = await _context.LoaiGhes.FindAsync(id);
+            var loaiXes = await _context.LoaiXes.FindAsync(id);
             if (loaiXes == null)
             {
                 return NotFound();
             }
 
-            _context.LoaiGhes.Remove(loaiXes);
+            _context.LoaiXes.Remove(loaiXes);
             await _context.SaveChangesAsync();
 
             return loaiXes;
@@ -104,7 +104,7 @@ namespace TP_Cariage_API.Controllers
 
         private bool LoaiXesExists(int id)
         {
-            return _context.LoaiGhes.Any(e => e.Id == id);
+            return _context.LoaiXes.Any(e => e.Id == id);
         }
     }
 }

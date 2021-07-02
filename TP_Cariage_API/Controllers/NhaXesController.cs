@@ -33,7 +33,7 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<NhaXes>> GetNhaXes(int id)
         {
             var nhaXes = await _context.NhaXes.FindAsync(id);
-
+            nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
             if (nhaXes == null)
             {
                 return NotFound();

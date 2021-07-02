@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
@@ -15,10 +16,11 @@ namespace TP_Cariage_API.Controllers
     public class NhanXetsController : ControllerBase
     {
         private readonly TPCarriageContext _context;
-
-        public NhanXetsController(TPCarriageContext context)
+        private readonly UserManager<Accounts> _userManager;
+        public NhanXetsController(TPCarriageContext context, UserManager<Accounts> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/NhanXets
@@ -33,7 +35,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<NhanXets>> GetNhanXets(int id)
         {
             var nhanXets = await _context.NhanXets.FindAsync(id);
-
+            nhanXets.NhaXes = await _context.NhaXes.FindAsync(nhanXets.NhaXeId);
+            nhanXets.Accounts = await _userManager.FindByIdAsync(nhanXets.AccountId.ToString());
             if (nhanXets == null)
             {
                 return NotFound();

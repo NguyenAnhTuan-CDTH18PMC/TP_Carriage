@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
@@ -15,10 +16,11 @@ namespace TP_Cariage_API.Controllers
     public class VeXesController : ControllerBase
     {
         private readonly TPCarriageContext _context;
-
-        public VeXesController(TPCarriageContext context)
+        private readonly UserManager<Accounts> _userManager;
+        public VeXesController(TPCarriageContext context, UserManager<Accounts> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/VeXes
@@ -33,7 +35,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<VeXes>> GetVeXes(int id)
         {
             var veXes = await _context.VeXes.FindAsync(id);
-
+            veXes.ChuyenXes = await _context.ChuyenXes.FindAsync(veXes.ChuyenXeId);
+            veXes.Accounts = await _userManager.FindByIdAsync(veXes.AccountId.ToString());
             if (veXes == null)
             {
                 return NotFound();

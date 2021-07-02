@@ -35,7 +35,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<ChiTietVes>> GetChiTietVes(int id)
         {
             var chiTietVes = await _context.ChiTietVes.FindAsync(id);
-
+            chiTietVes.Ghe = await _context.Ghes.FindAsync(chiTietVes.GheId);
+            chiTietVes.VeXe = await _context.VeXes.FindAsync(chiTietVes.VeXeId);
             if (chiTietVes == null)
             {
                 return NotFound();

@@ -33,7 +33,7 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<Ghes>> GetGhes(int id)
         {
             var ghes = await _context.Ghes.FindAsync(id);
-
+            ghes.Xes = await _context.Xes.FindAsync(ghes.XeId);
             if (ghes == null)
             {
                 return NotFound();

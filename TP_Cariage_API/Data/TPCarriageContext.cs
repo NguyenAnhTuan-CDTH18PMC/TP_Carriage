@@ -20,7 +20,7 @@ namespace TP_Cariage_API.Data
         public DbSet<DiaDiems> DiemDens { get; set; }
         public DbSet<Ghes> Ghes { get; set; }
         public DbSet<LichTrinhs> LichTrinhs { get; set; }
-        public DbSet<LoaiXes> LoaiGhes { get; set; }
+        public DbSet<LoaiXes> LoaiXes { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<Messagegroups> Messagegroups { get; set; }
         public DbSet<NhanXets> NhanXets { get; set; }
