@@ -310,6 +310,9 @@ namespace TP_Cariage_API.Migrations
                     b.Property<int>("GheId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("GhesId")
+                        .HasColumnType("int");
+
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
@@ -319,11 +322,14 @@ namespace TP_Cariage_API.Migrations
                     b.Property<int>("VeXeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("VeXesId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("GheId");
+                    b.HasIndex("GhesId");
 
-                    b.HasIndex("VeXeId");
+                    b.HasIndex("VeXesId");
 
                     b.ToTable("ChiTietVes");
                 });
@@ -680,8 +686,8 @@ namespace TP_Cariage_API.Migrations
                     b.Property<string>("AccountsId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ChuyenXeId")
-                        .HasColumnType("int");
+                    b.Property<string>("ChuyenXeId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ChuyenXesId")
                         .HasColumnType("int");
@@ -817,17 +823,13 @@ namespace TP_Cariage_API.Migrations
 
             modelBuilder.Entity("TP_Cariage_API.Models.ChiTietVes", b =>
                 {
-                    b.HasOne("TP_Cariage_API.Models.Ghes", "Ghe")
+                    b.HasOne("TP_Cariage_API.Models.Ghes", "Ghes")
                         .WithMany("ChiTietVes")
-                        .HasForeignKey("GheId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GhesId");
 
-                    b.HasOne("TP_Cariage_API.Models.VeXes", "VeXe")
+                    b.HasOne("TP_Cariage_API.Models.VeXes", "VeXes")
                         .WithMany("ChiTietVes")
-                        .HasForeignKey("VeXeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VeXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.ChuyenXes", b =>

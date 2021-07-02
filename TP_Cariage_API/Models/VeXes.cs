@@ -16,7 +16,7 @@ namespace TP_Cariage_API.Models
 
         public int AccountId { get; set; }
         public virtual Accounts Accounts { get; set; }
-        public int ChuyenXeId { get; set; }
+        public string ChuyenXeId { get; set; }
         public virtual ChuyenXes ChuyenXes { get; set; }
         public virtual ICollection<ChiTietVes> ChiTietVes { get; set; }
     }

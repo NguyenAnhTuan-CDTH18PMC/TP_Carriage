@@ -10,8 +10,8 @@ namespace TP_Cariage_API.Models
         public decimal GiaVe { get; set; }
 
         public int GheId { get; set; }
-        public virtual Ghes Ghe { get; set; }
+        public virtual Ghes Ghes { get; set; }
         public int VeXeId { get; set; }
-        public virtual VeXes VeXe { get; set; }
+        public virtual VeXes VeXes { get; set; }
     }
 }

@@ -35,7 +35,13 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<VeXes>> GetVeXes(int id)
         {
             var veXes = await _context.VeXes.FindAsync(id);
-            veXes.ChuyenXes = await _context.ChuyenXes.FindAsync(veXes.ChuyenXeId);
+           var chuyenXes = await _context.ChuyenXes.FindAsync(veXes.ChuyenXeId);
+            chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+            chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
+            chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+            chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+            chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+            veXes.ChuyenXes = chuyenXes;
             veXes.Accounts = await _userManager.FindByIdAsync(veXes.AccountId.ToString());
             if (veXes == null)
             {

@@ -90,7 +90,7 @@ namespace TP_Cariage_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoaiGhes",
+                name: "LoaiXes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -100,7 +100,7 @@ namespace TP_Cariage_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoaiGhes", x => x.Id);
+                    table.PrimaryKey("PK_LoaiXes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -404,9 +404,9 @@ namespace TP_Cariage_API.Migrations
                 {
                     table.PrimaryKey("PK_Xes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Xes_LoaiGhes_LoaiXesId",
+                        name: "FK_Xes_LoaiXes_LoaiXesId",
                         column: x => x.LoaiXesId,
-                        principalTable: "LoaiGhes",
+                        principalTable: "LoaiXes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -510,7 +510,7 @@ namespace TP_Cariage_API.Migrations
                     ThoiGianHuy = table.Column<DateTime>(nullable: false),
                     AccountId = table.Column<int>(nullable: false),
                     AccountsId = table.Column<string>(nullable: true),
-                    ChuyenXeId = table.Column<int>(nullable: false),
+                    ChuyenXeId = table.Column<string>(nullable: true),
                     ChuyenXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -539,23 +539,25 @@ namespace TP_Cariage_API.Migrations
                     GhiChu = table.Column<string>(nullable: true),
                     GiaVe = table.Column<decimal>(nullable: false),
                     GheId = table.Column<int>(nullable: false),
-                    VeXeId = table.Column<int>(nullable: false)
+                    GhesId = table.Column<int>(nullable: true),
+                    VeXeId = table.Column<int>(nullable: false),
+                    VeXesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChiTietVes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ChiTietVes_Ghes_GheId",
-                        column: x => x.GheId,
+                        name: "FK_ChiTietVes_Ghes_GhesId",
+                        column: x => x.GhesId,
                         principalTable: "Ghes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ChiTietVes_VeXes_VeXeId",
-                        column: x => x.VeXeId,
+                        name: "FK_ChiTietVes_VeXes_VeXesId",
+                        column: x => x.VeXesId,
                         principalTable: "VeXes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -608,14 +610,14 @@ namespace TP_Cariage_API.Migrations
                 column: "NhaXesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChiTietVes_GheId",
+                name: "IX_ChiTietVes_GhesId",
                 table: "ChiTietVes",
-                column: "GheId");
+                column: "GhesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChiTietVes_VeXeId",
+                name: "IX_ChiTietVes_VeXesId",
                 table: "ChiTietVes",
-                column: "VeXeId");
+                column: "VeXesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChuyenXes_LichTrinhsId",
@@ -749,7 +751,7 @@ namespace TP_Cariage_API.Migrations
                 name: "DiemDens");
 
             migrationBuilder.DropTable(
-                name: "LoaiGhes");
+                name: "LoaiXes");
 
             migrationBuilder.DropTable(
                 name: "NhaXes");

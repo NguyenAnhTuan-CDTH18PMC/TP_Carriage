@@ -34,7 +34,10 @@ namespace TP_Cariage_API.Controllers
         {
             var chuyenXes = await _context.ChuyenXes.FindAsync(id);
             chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+            chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
             chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+            chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+            chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
             if (chuyenXes == null)
             {
                 return NotFound();
