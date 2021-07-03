@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -40,13 +41,16 @@ namespace TP_Cariage_API.Controllers
         }
 
         // GET: api/Accounts/5
-        [HttpGet]
+        [HttpGet("UserInfo")]
         [Authorize]
-        public async Task<IActionResult> GetAccountsByToken()
+        public IActionResult GetAccountsByToken()
         {
-            ClaimsPrincipal currentUser = this.User;
-            var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Accounts user = await _userManager.FindByNameAsync(currentUserName);
+            var email = string.Empty;
+            if (HttpContext.User.Identity is ClaimsIdentity identity)
+            {
+                email = identity.FindFirst(ClaimTypes.Email).Value;
+            }
+            var user = _userManager.FindByEmailAsync(email);
             return Ok(user);
         }
 
