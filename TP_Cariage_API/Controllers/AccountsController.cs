@@ -42,7 +42,7 @@ namespace TP_Cariage_API.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> GetAccounts(string email)
         {
-            var accounts = await _userManager.FindByIdAsync(email);
+            var accounts = await _userManager.FindByEmailAsync(email);
 
             if (accounts == null)
             {
@@ -61,7 +61,7 @@ namespace TP_Cariage_API.Controllers
 
             try
             {
-                var user = await _userManager.FindByIdAsync(email);
+                var user = await _userManager.FindByEmailAsync(email);
                 if (user != null)
                 {
                     user.NamSinh = accounts.NamSinh;
@@ -134,7 +134,7 @@ namespace TP_Cariage_API.Controllers
         [HttpDelete("{email}")]
         public async Task<ActionResult<Accounts>> DeleteAccounts(string email)
         {
-            var accounts = await _userManager.FindByIdAsync(email);
+            var accounts = await _userManager.FindByEmailAsync(email);
             if (accounts == null)
             {
                 return NotFound();
