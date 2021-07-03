@@ -41,7 +41,7 @@ namespace TP_Cariage_API.Controllers
             return listChuyenXe;
         }
 
-        [HttpGet("{NhaXes/id}")]
+        [HttpGet("NhaXes/{id}")]
         public async Task<ActionResult<IEnumerable<ChuyenXes>>> GetChuyenXesNhaXes(int id)
         {
             List<ChuyenXes> result=new List<ChuyenXes>();
@@ -52,7 +52,9 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (ChuyenXes chuyenXes in listChuyenXe)
             {
-                if (chuyenXes.Xes.NhaXeId == id)
+                var Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                var NhaXe = await _context.NhaXes.FindAsync(Xes.NhaXeId);
+                if (NhaXe.Id == id)
                 {
                     chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
                     chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
