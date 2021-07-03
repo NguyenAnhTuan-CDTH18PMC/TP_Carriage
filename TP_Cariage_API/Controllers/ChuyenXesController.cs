@@ -25,7 +25,44 @@ namespace TP_Cariage_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChuyenXes>>> GetChuyenXes()
         {
-            return await _context.ChuyenXes.ToListAsync();
+            List<ChuyenXes> listChuyenXe = await _context.ChuyenXes.ToListAsync();
+            if (listChuyenXe == null)
+            {
+                return NotFound();
+            }
+            foreach (ChuyenXes chuyenXes in listChuyenXe)
+            {
+                chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
+                chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+            }
+            return listChuyenXe;
+        }
+
+        [HttpGet("{NhaXes/id}")]
+        public async Task<ActionResult<IEnumerable<ChuyenXes>>> GetChuyenXesNhaXes(int id)
+        {
+            List<ChuyenXes> result=new List<ChuyenXes>();
+            List<ChuyenXes> listChuyenXe = await _context.ChuyenXes.ToListAsync();
+            if (listChuyenXe == null)
+            {
+                return NotFound();
+            }
+            foreach (ChuyenXes chuyenXes in listChuyenXe)
+            {
+                if (chuyenXes.Xes.NhaXeId == id)
+                {
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiaDiemId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    result.Add(chuyenXes);
+                }
+            }
+            return result;
         }
 
         // GET: api/ChuyenXes/5

@@ -13,6 +13,7 @@ namespace TP_Cariage_API.Models
         }
 
         public int Id { get; set; }
+        public string TenNhaXe { get; set; }
         public string DiaChi { get; set; }
         public string Sdt { get; set; }
         public string HinhAnh { get; set; }
