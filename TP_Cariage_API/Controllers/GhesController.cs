@@ -28,6 +28,27 @@ namespace TP_Cariage_API.Controllers
             return await _context.Ghes.ToListAsync();
         }
 
+        [HttpGet("ChuyenXes/{id}")]
+        public async Task<ActionResult<IEnumerable<Ghes>>> GetGhesTheoChuyenXes(int id)
+        {
+            List<Ghes> result = new List<Ghes>();
+            var chuyenXes = await _context.ChuyenXes.FindAsync(id);
+            var Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+            List<Ghes> listGhe = await _context.Ghes.ToListAsync();
+            if (listGhe == null)
+            {
+                return NotFound();
+            }
+            foreach(Ghes ghes in listGhe)
+            {
+                if (ghes.XeId == Xes.Id)
+                {
+                    result.Add(ghes);
+                }
+            }
+            return Ok(result);
+        }
+
         // GET: api/Ghes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ghes>> GetGhes(int id)
@@ -46,15 +67,12 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGhes(int id, Ghes ghes)
+        public async Task<IActionResult> PutGhes(int id,Ghes request)
         {
-            if (id != ghes.Id)
-            {
-                return BadRequest();
-            }
+            var ghes = await _context.Ghes.FindAsync(id);
 
             _context.Entry(ghes).State = EntityState.Modified;
-
+            ghes.TrangThai= request.TrangThai;
             try
             {
                 await _context.SaveChangesAsync();
@@ -71,7 +89,7 @@ namespace TP_Cariage_API.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(ghes);
         }
 
         // POST: api/Ghes
