@@ -39,10 +39,10 @@ namespace TP_Cariage_API.Controllers
         }
 
         // GET: api/Accounts/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAccounts(string id)
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetAccounts(string Email)
         {
-            var accounts = await _userManager.FindByIdAsync(id);
+            var accounts = await _userManager.FindByIdAsync(Email);
 
             if (accounts == null)
             {
@@ -55,13 +55,13 @@ namespace TP_Cariage_API.Controllers
         // PUT: api/Accounts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccounts(string id, UserModel accounts)
+        [HttpPut("{email}")]
+        public async Task<IActionResult> PutAccounts(string Email, UserModel accounts)
         {
 
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
+                var user = await _userManager.FindByIdAsync(Email);
                 if (user != null)
                 {
                     user.NamSinh = accounts.NamSinh;
@@ -74,7 +74,7 @@ namespace TP_Cariage_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountsExistsAsync(id).Result)
+                if (!AccountsExistsAsync(Email).Result)
                 {
                     return NotFound();
                 }
@@ -131,10 +131,10 @@ namespace TP_Cariage_API.Controllers
         }
 
         // DELETE: api/Accounts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Accounts>> DeleteAccounts(string id)
+        [HttpDelete("{email}")]
+        public async Task<ActionResult<Accounts>> DeleteAccounts(string Email)
         {
-            var accounts = await _userManager.FindByIdAsync(id);
+            var accounts = await _userManager.FindByIdAsync(Email);
             if (accounts == null)
             {
                 return NotFound();
