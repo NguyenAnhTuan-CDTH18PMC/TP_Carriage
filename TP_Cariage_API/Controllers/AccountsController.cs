@@ -40,9 +40,9 @@ namespace TP_Cariage_API.Controllers
 
         // GET: api/Accounts/5
         [HttpGet("{email}")]
-        public async Task<IActionResult> GetAccounts(string Email)
+        public async Task<IActionResult> GetAccounts(string email)
         {
-            var accounts = await _userManager.FindByIdAsync(Email);
+            var accounts = await _userManager.FindByIdAsync(email);
 
             if (accounts == null)
             {
@@ -56,12 +56,12 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{email}")]
-        public async Task<IActionResult> PutAccounts(string Email, UserModel accounts)
+        public async Task<IActionResult> PutAccounts(string email, UserModel accounts)
         {
 
             try
             {
-                var user = await _userManager.FindByIdAsync(Email);
+                var user = await _userManager.FindByIdAsync(email);
                 if (user != null)
                 {
                     user.NamSinh = accounts.NamSinh;
@@ -74,7 +74,7 @@ namespace TP_Cariage_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountsExistsAsync(Email).Result)
+                if (!AccountsExistsAsync(email).Result)
                 {
                     return NotFound();
                 }
@@ -132,9 +132,9 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/Accounts/5
         [HttpDelete("{email}")]
-        public async Task<ActionResult<Accounts>> DeleteAccounts(string Email)
+        public async Task<ActionResult<Accounts>> DeleteAccounts(string email)
         {
-            var accounts = await _userManager.FindByIdAsync(Email);
+            var accounts = await _userManager.FindByIdAsync(email);
             if (accounts == null)
             {
                 return NotFound();
