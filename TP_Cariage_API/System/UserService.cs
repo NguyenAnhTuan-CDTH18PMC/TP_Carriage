@@ -174,7 +174,10 @@ namespace TP_Cariage_API.System
         private async Task<string> SendForgetPasswordEmail(Accounts user, string origin)
         {
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            return code;
+            var route = "reset-password/";
+            var _enpointUri = new Uri(string.Concat($"{origin}/", route));
+            var verificationUri = _enpointUri.ToString() + user.Email + "/" + code;
+            return verificationUri;
         }
         public async Task<ContentResult> ForgetPassword(string email, string code,string newPassword)
         {
@@ -215,7 +218,7 @@ namespace TP_Cariage_API.System
             var result = await _userManager.FindByEmailAsync(request.Email);
             if (result!=null)
             {
-                var verify = await SendForgetPasswordEmail(result, "https://localhost:44330");
+                var verify = await SendForgetPasswordEmail(result, "https://localhost:3000");
                 var sendEmail = await SendMail(new EmailRequest
                 {
                     To = request.Email,
