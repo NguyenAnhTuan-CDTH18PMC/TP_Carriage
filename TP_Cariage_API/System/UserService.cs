@@ -23,6 +23,7 @@ namespace TP_Cariage_API.System
         private readonly SignInManager<Accounts> _signInManager;
         //private readonly RoleManager<Accounts> _roleManager;
         private readonly IConfiguration _config;
+
         public UserService(UserManager<Accounts> userManager, SignInManager<Accounts> signInManager,/*RoleManager<Accounts> roleManager,*/ IConfiguration config)
         {
             _userManager = userManager;
@@ -167,8 +168,66 @@ namespace TP_Cariage_API.System
             var _enpointUri = new Uri(string.Concat($"{origin}/", route));
             var verificationUri = QueryHelpers.AddQueryString(_enpointUri.ToString(), "userId", user.Id);
             verificationUri = QueryHelpers.AddQueryString(verificationUri, "code", code);
-            //Email Service Call Here
             return verificationUri;
         }
+
+        private async Task<string> SendForgetPasswordEmail(Accounts user, string origin)
+        {
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return code;
+        }
+        public async Task<ContentResult> ForgetPassword(string email, string code,string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);           
+            var result = await _userManager.ResetPasswordAsync(user, code, newPassword);
+            if (result.Succeeded)
+            {
+                return new ContentResult
+                {
+                    ContentType = "text/html",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Content = "<html><body>"
+                    + "<meta charset =utf-8>"
+                    + "<h1 style=color:#25D366><center><img width=20 height=20 src=https://cachbothuocla.vn/wp-content/uploads/2019/03/tick-xanh.png>" + "Bạn đã thay đổi mật khẩu thành công</center></h1>"  + "<span><center><strong>TP_Carriage xin cảm ơn</strong></center></span>"
+                    + "<center><img height=500 width=800 src=https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-%E1%BA%A3nh-c%E1%BA%A3m-%C6%A1n.jpg>" + "</center>"
+                + "</body></html>"
+                };
+            }
+            else
+            {
+                return new ContentResult
+                {
+                    ContentType = "text/html",
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Content = "<html><body>"
+                    + "<meta charset =utf-8>"
+                    + "<h1 style=color:#25D366><center><img width=20 height=20 src=https://icon2.cleanpng.com/20180529/zic/kisspng-desktop-wallpaper-computer-icons-clip-art-red-x-5b0dc6f9aaa3e0.188420681527629561699.jpg>" + "Bạn đã thay đổi mật khẩu thất bại</center></h1>"
+                    + "<span><center><strong>" + user.TenKh.ToString() + "hãy thử lại nhé</strong></center></span>"
+                    + "<center><img height=500 width=800 src=https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-%E1%BA%A3nh-c%E1%BA%A3m-%C6%A1n.jpg>" + "</center>"
+                + "</body></html>"
+                };
+            }
+        }
+
+        public async Task<bool> ForgotPassword(ForgetPasswordRequest request)
+        {
+
+            var result = await _userManager.FindByEmailAsync(request.Email);
+            if (result!=null)
+            {
+                var verify = await SendForgetPasswordEmail(result, "https://localhost:44330");
+                var sendEmail = await SendMail(new EmailRequest
+                {
+                    To = request.Email,
+                    Subject = "Đây là email đổi mật khẩu tài khoản từ TP_Carriage",
+                    Body = "Hãy nhấp vào link sau đây để đổi mật khẩu tài khoản : " + verify
+
+                }); ;
+                return true;
+            }
+            return false;
+        }
+
+     
     }
 }

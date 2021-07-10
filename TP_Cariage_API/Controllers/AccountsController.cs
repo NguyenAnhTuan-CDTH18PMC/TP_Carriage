@@ -190,12 +190,41 @@ namespace TP_Cariage_API.Controllers
             }
           
         }
+        [HttpPost("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> FogetPassword([FromBody] ForgetPasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (await AccountsExistsAsync(request.Email))
+            {
+                var result = await _userService.ForgotPassword(request);
+                if (!result)
+                {
+                    return BadRequest();
+                }
+                return Ok("Vui lòng kiểm tra email để thay đổi tài khoản");
+            }
+            else
+            {
+                return BadRequest("Vui lòng thử lại");
+            }
 
+        }
+        [HttpPost("Reset-Password")]
+        public async Task<ContentResult> ForgetPasswordEmail([FromBody]ResetPasswordRequest resetPasswordRequest)
+        {
+            return await _userService.ForgetPassword(resetPasswordRequest.Email, resetPasswordRequest.Token, resetPasswordRequest.newPassword);
+        }
         [HttpGet("confirm-email")]
         public async Task<ContentResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string code)
         {
             return await _userService.ConfirmEmail(userId, code);
         }
+
+       
         private async Task<bool> AccountsExistsAsync(string email)
         {
             var accounts = await _userManager.FindByEmailAsync(email);
