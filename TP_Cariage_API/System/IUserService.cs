@@ -12,8 +12,8 @@ namespace TP_Cariage_API.System
         Task<string> Authencate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
          Task<bool> SendMail(EmailRequest emailRequest);
-         Task<bool> ForgotPassword(ForgetPasswordRequest request);
+        Task<bool> ForgotPassword(ForgetPasswordRequest request);
         Task<ContentResult> ConfirmEmail(string userId, string code);
-        Task<ContentResult> ForgetPassword(string email,string token, string newPassword);
+        Task<ContentResult> ForgetPassword(string email, string code, string newPassword);
     }
 }
