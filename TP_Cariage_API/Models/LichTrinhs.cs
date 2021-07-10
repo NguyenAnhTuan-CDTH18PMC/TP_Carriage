@@ -11,8 +11,11 @@ namespace TP_Cariage_API.Models
         public int ThoiGianUocTinh { get; set; }
         public int TrangThai { get; set; }
 
-        public int DiaDiemId { get; set; }
-        public virtual DiaDiems DiaDiems { get; set; }
+        public int DiemDiId { get; set; }
+        public virtual DiaDiems DiemDis { get; set; }
+
+        public int DiemDenId { get; set; }
+        public virtual DiaDiems DiemDens { get; set; }
 
         public virtual ICollection<ChuyenXes> ChuyenXes { get; set; }
     }

@@ -33,7 +33,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<LichTrinhs>> GetLichTrinhs(int id)
         {
             var lichTrinhs = await _context.LichTrinhs.FindAsync(id);
-            lichTrinhs.DiaDiems = await _context.DiemDens.FindAsync(lichTrinhs.DiaDiemId);
+            lichTrinhs.DiemDens = await _context.DiemDens.FindAsync(lichTrinhs.DiemDenId);
+            lichTrinhs.DiemDis = await _context.DiemDens.FindAsync(lichTrinhs.DiemDiId);
             if (lichTrinhs == null)
             {
                 return NotFound();

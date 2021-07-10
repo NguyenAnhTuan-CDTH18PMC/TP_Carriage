@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TP_Cariage_API.Models
 {
@@ -11,6 +12,7 @@ namespace TP_Cariage_API.Models
         public string DiaChi { get; set; }
         public string Mota { get; set; }
 
+        [NotMapped]
         public virtual ICollection<LichTrinhs> LichTrinhs{ get; set; }
     }
 }

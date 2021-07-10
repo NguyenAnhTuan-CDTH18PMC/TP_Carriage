@@ -71,3 +71,19 @@ Example Body
       "Email" : "nguyenhoaiphu123@gmail.com",
       "Password":"Abcd@1234"
 }
+
+
+
+localhost/api/Accounts/ResetPassword => POST (Gửi mail resetpassword)
+Example Body
+{
+         "Email":"0306181290"
+}
+
+localhost/api/Accounts/Reset-Password => POST (Gửi request thay đổi mật khẩu)
+Example Body
+{
+     "Email":"0306181290",
+     "Token":"Token này lấy ở trong mail gửi user", 
+     "newPassword":"nhập mật khẩu mới"
+}
