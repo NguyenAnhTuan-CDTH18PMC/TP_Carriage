@@ -25,7 +25,17 @@ namespace TP_Cariage_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LichTrinhs>>> GetLichTrinhs()
         {
-            return await _context.LichTrinhs.ToListAsync();
+            List<LichTrinhs> listLichTrinh = await _context.LichTrinhs.ToListAsync();
+            if (listLichTrinh == null)
+            {
+                return NotFound();
+            }
+            foreach (LichTrinhs lichTrinhs in listLichTrinh)
+            {
+                lichTrinhs.DiemDens = await _context.DiemDens.FindAsync(lichTrinhs.DiemDenId);
+                lichTrinhs.DiemDis = await _context.DiemDens.FindAsync(lichTrinhs.DiemDiId);
+            }
+            return listLichTrinh;
         }
 
         // GET: api/LichTrinhs/5
