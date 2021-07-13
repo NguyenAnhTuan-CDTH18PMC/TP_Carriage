@@ -44,6 +44,27 @@ namespace TP_Cariage_API.Controllers
             return xes;
         }
 
+        [HttpGet("NhaXes/{id}")]
+        public async Task<ActionResult<IEnumerable<Xes>>> GetXesNhaXes(int id)
+        {
+            List<Xes> result = new List<Xes>();
+            List<Xes> listXe = await _context.Xes.ToListAsync();
+            if (listXe == null)
+            {
+                return NotFound();
+            }
+            foreach (Xes xes in listXe)
+            {
+                if (xes.NhaXeId == id)
+                {
+                    xes.NhaXes = await _context.NhaXes.FindAsync(xes.NhaXeId);
+                    xes.NhaXes.BenXes = await _context.BenXes.FindAsync(xes.NhaXes.BenXeId);
+                    xes.LoaiXes = await _context.LoaiXes.FindAsync(xes.LoaiXeId);
+                    result.Add(xes);
+                }
+            }
+            return result;
+        }
         // PUT: api/Xes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

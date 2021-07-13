@@ -15,8 +15,8 @@ Sau đó chạy code lên để lấy API.
 
 localhost/api/Accounts => GET (Lấy danh sách)
 localhost/api/Accounts/{id} => GET (Lấy 1 đối tượng theo id)
-localhost/api/Accounts/{id} => POST(Thêm 1 đối tượng)
-localhost/api/Accounts => PUT (Update)
+localhost/api/Accounts => POST(Thêm 1 đối tượng)
+localhost/api/Accounts/{id} => PUT (Update)
 localhost/api/Accounts/{id} => DELETE (Xóa 1 đối tượng)
 
 
@@ -87,3 +87,10 @@ Example Body
      "Token":"Token này lấy ở trong mail gửi user", 
      "newPassword":"nhập mật khẩu mới"
 }
+
+
+
+
+localhost/api/Xes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấy ra list xe của nhà xe
+localhost/api/ChuyenXes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấy ra list chuyến xe của nhà xe
+localhost/api/VeXes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến xe) ==> Lấy ra tất cả các vé của chuyến xe đó
