@@ -53,13 +53,40 @@ namespace TP_Cariage_API.Controllers
             return veXes;
         }
         [HttpGet("ChuyenXes/{id}")]
-        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesChuyenXes(int id)
+        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesTheoChuyenXes(int id)
         {
             List<VeXes> result = new List<VeXes>();
             List<VeXes> listVeXes = await _context.VeXes.ToListAsync();
             if (listVeXes == null)
             {
                 return NotFound();
+            }
+            foreach (VeXes ves in listVeXes)
+            {
+                if (ves.ChuyenXeId == id)
+                {
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(ves.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.ChuyenXes = chuyenXes;
+                    ves.Accounts = await _userManager.FindByIdAsync(ves.AccountId.ToString());
+                    result.Add(ves);
+                }
+            }
+            return result;
+        }
+        public async Task<List<VeXes>> GetVeXesChuyenXes(int id)
+        {
+            List<VeXes> result = new List<VeXes>();
+            List<VeXes> listVeXes = await _context.VeXes.ToListAsync();
+            if (listVeXes == null)
+            {
+                return null;
             }
             foreach (VeXes ves in listVeXes)
             {
@@ -79,6 +106,43 @@ namespace TP_Cariage_API.Controllers
                 }
             }
             return result;
+        }
+
+        [HttpGet("NhaXes/{id}")]
+        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesNhaXes(int id)
+        {
+
+            List<ChuyenXes> result = new List<ChuyenXes>();
+            List<ChuyenXes> listChuyenXe = await _context.ChuyenXes.ToListAsync();
+            List<VeXes> listVeXes = new List<VeXes>();
+            if (listChuyenXe == null)
+            {
+                return NotFound();
+            }
+            foreach (ChuyenXes chuyenXes in listChuyenXe)
+            {
+                var Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                var NhaXe = await _context.NhaXes.FindAsync(Xes.NhaXeId);
+                if (NhaXe.Id == id)
+                {
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    result.Add(chuyenXes);
+                }
+            }
+            foreach (ChuyenXes chuyenXes in result)
+            {
+               var lstTam = GetVeXesChuyenXes(chuyenXes.Id);
+                foreach(VeXes veXes in lstTam.Result)
+                {
+                    listVeXes.Add(veXes);
+                }
+            }
+            return listVeXes;
         }
         // PUT: api/VeXes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
