@@ -24,6 +24,7 @@ Thay Accounts bằng các Controller sau đây
 
 Accounts
 BenXes
+BangGias
 Chats
 ChiTietVes
 ChuyenXes
@@ -96,3 +97,4 @@ localhost/api/ChuyenXes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> 
 localhost/api/VeXes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến xe) ==> Lấy ra tất cả các vé của chuyến xe đó
 localhost/api/VeXes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấy ra tất cả các vé của nhà xe
 localhost/api/ChiTietVes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến xe) ==> Lấy ra tất cả các chi tiết vé của chuyến xe đó
+localhost/api/BangGias/NhaXes/{id} ==>GET(truyền vào id của nhà xe )==> Lấy ra tất cả các bảng giá của nhà xe

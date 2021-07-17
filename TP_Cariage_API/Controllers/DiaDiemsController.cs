@@ -25,14 +25,14 @@ namespace TP_Cariage_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DiaDiems>>> GetDiemDens()
         {
-            return await _context.DiemDens.ToListAsync();
+            return await _context.DiaDiems.ToListAsync();
         }
 
         // GET: api/DiaDiems/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DiaDiems>> GetDiaDiems(int id)
         {
-            var diaDiems = await _context.DiemDens.FindAsync(id);
+            var diaDiems = await _context.DiaDiems.FindAsync(id);
 
             if (diaDiems == null)
             {
@@ -80,7 +80,7 @@ namespace TP_Cariage_API.Controllers
         [HttpPost]
         public async Task<ActionResult<DiaDiems>> PostDiaDiems(DiaDiems diaDiems)
         {
-            _context.DiemDens.Add(diaDiems);
+            _context.DiaDiems.Add(diaDiems);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDiaDiems", new { id = diaDiems.Id }, diaDiems);
@@ -90,13 +90,13 @@ namespace TP_Cariage_API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<DiaDiems>> DeleteDiaDiems(int id)
         {
-            var diaDiems = await _context.DiemDens.FindAsync(id);
+            var diaDiems = await _context.DiaDiems.FindAsync(id);
             if (diaDiems == null)
             {
                 return NotFound();
             }
 
-            _context.DiemDens.Remove(diaDiems);
+            _context.DiaDiems.Remove(diaDiems);
             await _context.SaveChangesAsync();
 
             return diaDiems;
@@ -104,7 +104,7 @@ namespace TP_Cariage_API.Controllers
 
         private bool DiaDiemsExists(int id)
         {
-            return _context.DiemDens.Any(e => e.Id == id);
+            return _context.DiaDiems.Any(e => e.Id == id);
         }
     }
 }

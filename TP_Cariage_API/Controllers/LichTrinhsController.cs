@@ -32,8 +32,8 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (LichTrinhs lichTrinhs in listLichTrinh)
             {
-                lichTrinhs.DiemDens = await _context.DiemDens.FindAsync(lichTrinhs.DiemDenId);
-                lichTrinhs.DiemDis = await _context.DiemDens.FindAsync(lichTrinhs.DiemDiId);
+                lichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDenId);
+                lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
             }
             return listLichTrinh;
         }
@@ -43,8 +43,8 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<LichTrinhs>> GetLichTrinhs(int id)
         {
             var lichTrinhs = await _context.LichTrinhs.FindAsync(id);
-            lichTrinhs.DiemDens = await _context.DiemDens.FindAsync(lichTrinhs.DiemDenId);
-            lichTrinhs.DiemDis = await _context.DiemDens.FindAsync(lichTrinhs.DiemDiId);
+            lichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDenId);
+            lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
             if (lichTrinhs == null)
             {
                 return NotFound();

@@ -14,6 +14,7 @@ namespace TP_Cariage_API.Models
         public string TenLoai { get; set; }
         public string HinhAnh { get; set; }
 
+        public virtual ICollection<BangGias> BangGias { get; set; }
         public virtual ICollection<Xes> Xes { get; set; }
     }
 }

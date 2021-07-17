@@ -8,7 +8,6 @@ namespace TP_Cariage_API.Models
         public int Id { get; set; }
         public string HinhAnh { get; set; }
         public string BienSoXe { get; set; }
-        public decimal GiaGhe { get; set; }
         public int LoaiXe { get; set; }
         public int SoLuongHang { get; set; }
         public int SoLuongCot { get; set; }

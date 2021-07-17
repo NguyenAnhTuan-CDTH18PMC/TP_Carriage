@@ -46,8 +46,8 @@ namespace TP_Cariage_API.Controllers
                 {
                     var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
                     chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-                    chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-                    chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                     chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
@@ -73,8 +73,8 @@ namespace TP_Cariage_API.Controllers
             var veXes  = await _context.VeXes.FindAsync(chiTietVes.VeXeId);
             var chuyenXes = await _context.ChuyenXes.FindAsync(veXes.ChuyenXeId);
             chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-            chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-            chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+            chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+            chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
             chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
             chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
             chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);

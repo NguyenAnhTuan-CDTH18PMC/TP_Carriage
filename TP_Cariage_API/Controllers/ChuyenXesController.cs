@@ -33,8 +33,8 @@ namespace TP_Cariage_API.Controllers
             foreach (ChuyenXes chuyenXes in listChuyenXe)
             {
                 chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-                chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-                chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                 chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
                 chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                 chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);              
@@ -58,8 +58,8 @@ namespace TP_Cariage_API.Controllers
                 if (NhaXe.Id == id)
                 {
                     chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-                    chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-                    chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
@@ -75,8 +75,8 @@ namespace TP_Cariage_API.Controllers
         {
             var chuyenXes = await _context.ChuyenXes.FindAsync(id);
             chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-            chuyenXes.LichTrinhs.DiemDens = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-            chuyenXes.LichTrinhs.DiemDis = await _context.DiemDens.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+            chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+            chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
             chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
             chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
             chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);

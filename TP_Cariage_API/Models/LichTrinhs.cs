@@ -6,7 +6,6 @@ namespace TP_Cariage_API.Models
     public partial class LichTrinhs
     {
         public int Id { get; set; }
-        public decimal GiaChuyenDi { get; set; }
         public int KhoangCach { get; set; }
         public int ThoiGianUocTinh { get; set; }
         public int TrangThai { get; set; }
@@ -18,5 +17,6 @@ namespace TP_Cariage_API.Models
         public virtual DiaDiems DiemDens { get; set; }
 
         public virtual ICollection<ChuyenXes> ChuyenXes { get; set; }
+        public virtual ICollection<BangGias> BangGias { get; set; }
     }
 }
