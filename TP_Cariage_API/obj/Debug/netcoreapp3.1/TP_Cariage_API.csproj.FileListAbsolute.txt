@@ -172,4 +172,3 @@ C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.dll
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.pdb
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.genruntimeconfig.cache
-C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Debug\netcoreapp3.1\TP_Cariage_API.csprojAssemblyReference.cache
