@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutGhes(int id,Ghes request)
         {
             var ghes = await _context.Ghes.FindAsync(id);
@@ -96,6 +98,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Ghes>> PostGhes(Ghes ghes)
         {
             _context.Ghes.Add(ghes);
@@ -106,6 +109,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/Ghes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Ghes>> DeleteGhes(int id)
         {
             var ghes = await _context.Ghes.FindAsync(id);

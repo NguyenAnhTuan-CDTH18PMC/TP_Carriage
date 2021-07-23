@@ -25,6 +25,7 @@ namespace TP_Cariage_API.Models
 
         public virtual ICollection<Chats> Chats { get; set; }
         public virtual ICollection<NhanXets> NhanXets { get; set; }
+        public virtual ICollection<NhaXes> NhaXes { get; set; }
         public virtual ICollection<VeXes> VeXes { get; set; }
     }
 }

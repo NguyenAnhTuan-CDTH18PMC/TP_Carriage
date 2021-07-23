@@ -57,7 +57,9 @@ namespace TP_Cariage_API.Controllers
         // PUT: api/Accounts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        
         [HttpPut("{email}")]
+        [Authorize]
         public async Task<IActionResult> PutAccounts(string email, UserModel accounts)
         {
 
@@ -93,6 +95,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostAccounts(UserModel request)
         {
             var userWithSameUserName = await _userManager.FindByEmailAsync(request.Email);
@@ -134,6 +137,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/Accounts/5
         [HttpDelete("{email}")]
+        [Authorize]
         public async Task<ActionResult<Accounts>> DeleteAccounts(string email)
         {
             var accounts = await _userManager.FindByEmailAsync(email);

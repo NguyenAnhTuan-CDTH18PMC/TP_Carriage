@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +65,34 @@ namespace TP_Cariage_API.Controllers
             foreach (VeXes ves in listVeXes)
             {
                 if (ves.ChuyenXeId == id)
+                {
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(ves.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.ChuyenXes = chuyenXes;
+                    ves.Accounts = await _userManager.FindByIdAsync(ves.AccountId.ToString());
+                    result.Add(ves);
+                }
+            }
+            return result;
+        }
+        [HttpGet("Accounts/{email}")]
+        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesTheoAccounts(string email)
+        {
+            List<VeXes> result = new List<VeXes>();
+            List<VeXes> listVeXes = await _context.VeXes.ToListAsync();
+            if (listVeXes == null)
+            {
+                return NotFound();
+            }
+            foreach (VeXes ves in listVeXes)
+            {
+                if (ves.Accounts.Email == email)
                 {
                     var chuyenXes = await _context.ChuyenXes.FindAsync(ves.ChuyenXeId);
                     chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
@@ -148,6 +177,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutVeXes(int id, VeXes veXes)
         {
             if (id != veXes.Id)
@@ -180,6 +210,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<VeXes>> PostVeXes(VeXes veXes)
         {
             _context.VeXes.Add(veXes);
@@ -190,6 +221,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/VeXes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<VeXes>> DeleteVeXes(int id)
         {
             var veXes = await _context.VeXes.FindAsync(id);

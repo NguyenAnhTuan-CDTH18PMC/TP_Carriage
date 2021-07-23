@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutLichTrinhs(int id, LichTrinhs lichTrinhs)
         {
             if (id != lichTrinhs.Id)
@@ -89,6 +91,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<LichTrinhs>> PostLichTrinhs(LichTrinhs lichTrinhs)
         {
             _context.LichTrinhs.Add(lichTrinhs);
@@ -99,6 +102,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/LichTrinhs/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<LichTrinhs>> DeleteLichTrinhs(int id)
         {
             var lichTrinhs = await _context.LichTrinhs.FindAsync(id);

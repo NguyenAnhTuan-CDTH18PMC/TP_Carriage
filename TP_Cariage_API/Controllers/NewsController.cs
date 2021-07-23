@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutNews(int id, News news)
         {
             if (id != news.Id)
@@ -78,6 +80,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<News>> PostNews(News news)
         {
             _context.News.Add(news);
@@ -88,6 +91,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/News/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<News>> DeleteNews(int id)
         {
             var news = await _context.News.FindAsync(id);

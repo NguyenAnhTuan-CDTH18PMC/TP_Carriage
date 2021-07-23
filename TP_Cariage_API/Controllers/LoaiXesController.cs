@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutLoaiXes(int id, LoaiXes loaiXes)
         {
             if (id != loaiXes.Id)
@@ -78,6 +80,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<LoaiXes>> PostLoaiXes(LoaiXes loaiXes)
         {
             _context.LoaiXes.Add(loaiXes);
@@ -88,6 +91,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/LoaiXes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<LoaiXes>> DeleteLoaiXes(int id)
         {
             var loaiXes = await _context.LoaiXes.FindAsync(id);

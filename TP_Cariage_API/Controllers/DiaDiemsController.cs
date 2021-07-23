@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutDiaDiems(int id, DiaDiems diaDiems)
         {
             if (id != diaDiems.Id)
@@ -78,6 +80,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DiaDiems>> PostDiaDiems(DiaDiems diaDiems)
         {
             _context.DiaDiems.Add(diaDiems);
@@ -88,6 +91,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/DiaDiems/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<DiaDiems>> DeleteDiaDiems(int id)
         {
             var diaDiems = await _context.DiaDiems.FindAsync(id);

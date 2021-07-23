@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -92,6 +93,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutChuyenXes(int id, ChuyenXes chuyenXes)
         {
             if (id != chuyenXes.Id)
@@ -124,6 +126,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ChuyenXes>> PostChuyenXes(ChuyenXes chuyenXes)
         {
             _context.ChuyenXes.Add(chuyenXes);
@@ -134,6 +137,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/ChuyenXes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<ChuyenXes>> DeleteChuyenXes(int id)
         {
             var chuyenXes = await _context.ChuyenXes.FindAsync(id);

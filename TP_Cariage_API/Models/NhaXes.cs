@@ -23,6 +23,10 @@ namespace TP_Cariage_API.Models
 
         public int BenXeId { get; set; }
         public virtual BenXes BenXes { get; set; }
+
+        public string AccountsEmail { get; set; }
+        public virtual Accounts Accounts { get; set; }
+
         public virtual ICollection<Chats> Chats { get; set; }
         public virtual ICollection<NhanXets> NhanXets { get; set; }
         public virtual ICollection<Xes> Xes { get; set; }

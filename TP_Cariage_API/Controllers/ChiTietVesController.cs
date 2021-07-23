@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -94,6 +95,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutChiTietVes(int id, ChiTietVes chiTietVes)
         {
             if (id != chiTietVes.Id)
@@ -126,6 +128,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ChiTietVes>> PostChiTietVes(ChiTietVes chiTietVes)
         {
             _context.ChiTietVes.Add(chiTietVes);
@@ -136,6 +139,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/ChiTietVes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<ChiTietVes>> DeleteChiTietVes(int id)
         {
             var chiTietVes = await _context.ChiTietVes.FindAsync(id);
@@ -157,6 +161,7 @@ namespace TP_Cariage_API.Controllers
 
 
         [HttpPost("ThanhToan")]
+        [Authorize]
         public async Task<IActionResult> Test(ChiTietVes chiTietVes)
         {
             var momoRequest = new MomoRequest();

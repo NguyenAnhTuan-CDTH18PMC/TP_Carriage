@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
@@ -15,7 +17,7 @@ namespace TP_Cariage_API.Controllers
     public class NhaXesController : ControllerBase
     {
         private readonly TPCarriageContext _context;
-
+        private readonly UserManager<Accounts> _userManager;
         public NhaXesController(TPCarriageContext context)
         {
             _context = context;
@@ -34,6 +36,7 @@ namespace TP_Cariage_API.Controllers
         {
             var nhaXes = await _context.NhaXes.FindAsync(id);
             nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
+            nhaXes.Accounts = await _userManager.FindByEmailAsync(nhaXes.AccountsEmail);
             if (nhaXes == null)
             {
                 return NotFound();
@@ -46,6 +49,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutNhaXes(int id, NhaXes nhaXes)
         {
             if (id != nhaXes.Id)
@@ -78,6 +82,7 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<NhaXes>> PostNhaXes(NhaXes nhaXes)
         {
             _context.NhaXes.Add(nhaXes);
@@ -88,6 +93,7 @@ namespace TP_Cariage_API.Controllers
 
         // DELETE: api/NhaXes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<NhaXes>> DeleteNhaXes(int id)
         {
             var nhaXes = await _context.NhaXes.FindAsync(id);
