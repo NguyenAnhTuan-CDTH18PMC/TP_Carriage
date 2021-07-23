@@ -86,7 +86,7 @@ namespace TP_Cariage_API.System
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
-                var verify = await SendVerificationEmail(user, "https://localhost:44330");
+                var verify = await SendVerificationEmail(user, "http://www.tpcarriage.somee.com");
                 var sendEmail = await SendMail(new EmailRequest
                 {
                     To = request.Email,
