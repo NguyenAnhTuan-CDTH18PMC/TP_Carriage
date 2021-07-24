@@ -66,6 +66,7 @@ namespace TP_Cariage_API.Controllers
                     NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
                     nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
                     bangGias.NhaXes = nhaXes;
+                    result.Add(bangGias);
                 }
             }
             return result;
