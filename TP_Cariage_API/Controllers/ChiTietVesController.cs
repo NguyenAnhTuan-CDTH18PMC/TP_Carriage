@@ -43,6 +43,7 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (ChiTietVes ves in listChiTietVes)
             {
+                ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
                 if (ves.VeXes.ChuyenXeId == id)
                 {
                     var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
