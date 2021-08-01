@@ -91,7 +91,7 @@ Example Body
 
 
 
-
+localhost/api/ChuyenXes/TheoNgayHopLe ==> GET ==> Lấy ra list chuyến xe từ hôm nay trở đi
 localhost/api/Xes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấy ra list xe của nhà xe
 localhost/api/ChuyenXes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấy ra list chuyến xe của nhà xe
 localhost/api/VeXes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến xe) ==> Lấy ra tất cả các vé của chuyến xe đó

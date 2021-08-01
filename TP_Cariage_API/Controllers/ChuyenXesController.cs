@@ -43,6 +43,31 @@ namespace TP_Cariage_API.Controllers
             return listChuyenXe;
         }
 
+        [HttpGet("TheoNgayHopLe")]
+        public async Task<ActionResult<IEnumerable<ChuyenXes>>> GetChuyenXesTheoNgay()
+        {
+            List<ChuyenXes> listChuyenXe = await _context.ChuyenXes.ToListAsync();
+            List<ChuyenXes> result = new List<ChuyenXes>();
+            if (listChuyenXe == null)
+            {
+                return NotFound();
+            }
+            foreach (ChuyenXes chuyenXes in listChuyenXe)
+            {
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                if (chuyenXes.NgayKhoiHanh >= DateTime.Now)
+                {
+                    result.Add(chuyenXes);
+                }
+            }
+            return result;
+        }
+
         [HttpGet("NhaXes/{id}")]
         public async Task<ActionResult<IEnumerable<ChuyenXes>>> GetChuyenXesNhaXes(int id)
         {
