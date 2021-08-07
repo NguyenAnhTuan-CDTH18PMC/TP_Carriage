@@ -82,7 +82,6 @@ namespace TP_Cariage_API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<NhaXes>> PostNhaXes(NhaXes nhaXes)
         {
             _context.NhaXes.Add(nhaXes);
