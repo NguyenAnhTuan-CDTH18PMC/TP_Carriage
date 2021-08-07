@@ -99,3 +99,4 @@ localhost/api/VeXes/NhaXes/{id} ==> GET(truyền vào id của nhà xe) ==> Lấ
 localhost/api/ChiTietVes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến xe) ==> Lấy ra tất cả các chi tiết vé của chuyến xe đó
 localhost/api/BangGias/NhaXes/{id} ==>GET(truyền vào id của nhà xe )==> Lấy ra tất cả các bảng giá của nhà xe
 localhost/api/VeXes/Accounts/{email} ==> GET(truyền vào email của nhà xe) ==> Lấy ra tất cả các vé của account đó
+localhost/api/NhaXes/Email/{email} ==> GET(Truyền vào email của nhà xe) ==> Lấy ra thông tin của nhà xe theo email

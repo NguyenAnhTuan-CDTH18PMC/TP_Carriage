@@ -18,9 +18,10 @@ namespace TP_Cariage_API.Controllers
     {
         private readonly TPCarriageContext _context;
         private readonly UserManager<Accounts> _userManager;
-        public NhaXesController(TPCarriageContext context)
+        public NhaXesController(TPCarriageContext context, UserManager<Accounts> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/NhaXes
@@ -45,6 +46,26 @@ namespace TP_Cariage_API.Controllers
             return nhaXes;
         }
 
+        [HttpGet("Email/{email}")]
+        public async Task<ActionResult<IEnumerable<NhaXes>>> GetNhaXes(string email)
+        {
+            List<NhaXes> result = new List<NhaXes>();
+            List<NhaXes> listNhaXe = await _context.NhaXes.ToListAsync();
+            if (listNhaXe == null)
+            {
+                return NotFound();
+            }
+            foreach (NhaXes nhaXes in listNhaXe)
+            {
+                if (nhaXes.AccountsEmail==email)
+                {
+                    nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
+                    nhaXes.Accounts =await _userManager.FindByEmailAsync(nhaXes.AccountsEmail);
+                    result.Add(nhaXes);
+                }
+            }
+            return result;
+        }
         // PUT: api/NhaXes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
