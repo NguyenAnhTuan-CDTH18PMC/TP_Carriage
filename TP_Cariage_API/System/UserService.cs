@@ -76,6 +76,7 @@ namespace TP_Cariage_API.System
                 Email = request.Email,
                 TenKh = request.TenKh,
                 Cmnd = request.Cmnd,
+                AnhDaiDien=request.AnhDaiDien,
                 UserName = request.Email,
                 DiaChi = request.DiaChi,
                 GioiTinh = request.GioiTinh
@@ -86,7 +87,7 @@ namespace TP_Cariage_API.System
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.Basic.ToString());
-                var verify = await SendVerificationEmail(user, "http://tpcarriage.somee.com/");
+                var verify = await SendVerificationEmail(user, "http://tpcarriage.somee.com");
                 var sendEmail = await SendMail(new EmailRequest
                 {
                     To = request.Email,
