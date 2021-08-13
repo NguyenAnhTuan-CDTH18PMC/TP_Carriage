@@ -75,7 +75,7 @@ namespace TP_Cariage_API.System
             {
                 Email = request.Email,
                 TenKh = request.TenKh,
-                Cmnd = request.Cmnd,
+                Quyen = request.Quyen,
                 AnhDaiDien=request.AnhDaiDien,
                 UserName = request.Email,
                 DiaChi = request.DiaChi,
