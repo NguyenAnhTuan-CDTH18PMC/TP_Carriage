@@ -61,7 +61,7 @@ namespace TP_Cariage_API.Controllers
                     lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
                     bangGias.LichTrinhs = lichTrinhs;
 
-                     bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.NhaXesId);
+                     bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.LoaiXesId);
 
                     NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
                     nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
