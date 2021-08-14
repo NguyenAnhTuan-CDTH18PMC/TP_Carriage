@@ -114,10 +114,7 @@ namespace TP_Cariage_API
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(builder => builder
-     .AllowAnyOrigin()
-     .AllowAnyMethod()
-     .AllowAnyHeader()
-     .AllowCredentials());
+     .AllowAnyOrigin());
             app.UseHttpsRedirection();
            
             app.UseRouting();
