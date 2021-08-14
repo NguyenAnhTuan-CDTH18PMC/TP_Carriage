@@ -9,7 +9,7 @@ namespace TP_Cariage_API.Models
     {
         public int Id { get; set; }
         public decimal GiaVe { get; set; }
-
+        public int TrangThai { get; set; }
         public int NhaXesId { get; set; }
         public virtual NhaXes NhaXes { get; set; }
 

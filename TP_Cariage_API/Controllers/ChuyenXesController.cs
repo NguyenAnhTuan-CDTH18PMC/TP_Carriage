@@ -60,7 +60,7 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
-                if (chuyenXes.NgayKhoiHanh >= DateTime.Now)
+                if (chuyenXes.NgayKhoiHanh >= DateTime.Now && chuyenXes.TrangThai==1)
                 {
                     result.Add(chuyenXes);
                 }
