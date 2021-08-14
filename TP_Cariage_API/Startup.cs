@@ -39,6 +39,7 @@ namespace TP_Cariage_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllersWithViews()
 .AddNewtonsoftJson(options =>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
@@ -112,9 +113,13 @@ namespace TP_Cariage_API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder => builder
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader()
+     .AllowCredentials());
             app.UseHttpsRedirection();
-
+           
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
