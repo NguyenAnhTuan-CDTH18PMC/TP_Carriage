@@ -30,7 +30,28 @@ namespace TP_Cariage_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChiTietVes>>> GetChiTietVes()
         {
-            return await _context.ChiTietVes.ToListAsync();
+            List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
+            if (listChiTietVes == null)
+            {
+                return NotFound();
+            }
+            foreach (ChiTietVes ves in listChiTietVes)
+            {
+                ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
+                var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
+                chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
+                ves.VeXes.ChuyenXes = chuyenXes;
+                ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+            }
+            return listChiTietVes;
         }
         [HttpGet("ChuyenXes/{id}")]
         public async Task<ActionResult<IEnumerable<ChiTietVes>>> GetVeXesTheoChuyenXes(int id)
@@ -54,6 +75,40 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                     chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                    ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
+                    ves.VeXes.ChuyenXes = chuyenXes;
+                    ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    result.Add(ves);
+                }
+            }
+            return result;
+        }
+
+        [HttpGet("Accounts/{email}")]
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> GetVeXesTheoAccounts(string email)
+        {
+            List<ChiTietVes> result = new List<ChiTietVes>();
+            List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
+            if (listChiTietVes == null)
+            {
+                return NotFound();
+            }
+            foreach (ChiTietVes ves in listChiTietVes)
+            {
+                ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
+                if (ves.VeXes.AccountId == email)
+                {
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                    ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
                     result.Add(ves);
@@ -83,6 +138,39 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
                     chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                    ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
+                    ves.VeXes.ChuyenXes = chuyenXes;
+                    ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    result.Add(ves);
+                }
+            }
+            return result;
+        }
+        [HttpGet("NhaXes/{id}")]
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> GetVeXesTheoNhaXes(int id)
+        {
+            List<ChiTietVes> result = new List<ChiTietVes>();
+            List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
+            if (listChiTietVes == null)
+            {
+                return NotFound();
+            }
+            foreach (ChiTietVes ves in listChiTietVes)
+            {
+                ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
+                ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
+                if (ves.Ghes.Xes.NhaXeId == id)
+                {
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);                   
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
                     result.Add(ves);
@@ -162,6 +250,7 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<ChiTietVes>> PostChiTietVes(ChiTietVes chiTietVes)
         {
             _context.ChiTietVes.Add(chiTietVes);
+            chiTietVes.CreateAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetChiTietVes", new { id = chiTietVes.Id }, chiTietVes);

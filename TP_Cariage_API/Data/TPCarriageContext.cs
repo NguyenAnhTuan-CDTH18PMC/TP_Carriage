@@ -14,7 +14,7 @@ namespace TP_Cariage_API.Data
         {
         }
         public DbSet<BenXes> BenXes { get; set; }
-        public DbSet<Chats> Chats { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<ChiTietVes> ChiTietVes { get; set; }
         public DbSet<ChuyenXes> ChuyenXes { get; set; }
         public DbSet<DiaDiems> DiaDiems { get; set; }

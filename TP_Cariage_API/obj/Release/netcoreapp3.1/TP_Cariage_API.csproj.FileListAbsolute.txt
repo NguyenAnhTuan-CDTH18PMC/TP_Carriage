@@ -173,3 +173,8 @@ C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Release\netcoreapp
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.dll
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.pdb
 C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.genruntimeconfig.cache
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Release\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Release\netcoreapp3.1\Twilio.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Release\netcoreapp3.1\Twilio.AspNet.Common.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\bin\Release\netcoreapp3.1\Twilio.AspNet.Core.dll
+C:\Users\nguye\source\repos\TP_Cariage_API\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.MvcApplicationPartsAssemblyInfo.cs

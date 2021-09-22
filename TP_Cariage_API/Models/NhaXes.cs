@@ -7,7 +7,7 @@ namespace TP_Cariage_API.Models
     {
         public NhaXes()
         {
-            Chats = new HashSet<Chats>();
+            Chats = new HashSet<Comment>();
             NhanXets = new HashSet<NhanXets>();
             Xes = new HashSet<Xes>();
         }
@@ -27,7 +27,7 @@ namespace TP_Cariage_API.Models
         public string AccountsEmail { get; set; }
         public virtual Accounts Accounts { get; set; }
 
-        public virtual ICollection<Chats> Chats { get; set; }
+        public virtual ICollection<Comment> Chats { get; set; }
         public virtual ICollection<NhanXets> NhanXets { get; set; }
         public virtual ICollection<Xes> Xes { get; set; }
         public virtual ICollection<BangGias> BangGias { get; set; }

@@ -8,6 +8,7 @@ namespace TP_Cariage_API.Models
         public int Id { get; set; }
         public string GhiChu { get; set; }
         public decimal GiaVe { get; set; }
+        public DateTime CreateAt { get; set; }
 
         public int GheId { get; set; }
         public virtual Ghes Ghes { get; set; }

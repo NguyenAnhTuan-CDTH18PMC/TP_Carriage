@@ -6,12 +6,6 @@ namespace TP_Cariage_API.Models
 {
     public partial class Accounts:IdentityUser
     {
-        public Accounts()
-        {
-            Chats = new HashSet<Chats>();
-            NhanXets = new HashSet<NhanXets>();
-            VeXes = new HashSet<VeXes>();
-        }
         public string Password { get; set; }
         public string TenKh { get; set; }
         public string Cmnd { get; set; }
@@ -23,9 +17,9 @@ namespace TP_Cariage_API.Models
         public int GioiTinh { get; set; }
         public int TrangThai { get; set; }
 
-        public virtual ICollection<Chats> Chats { get; set; }
         public virtual ICollection<NhanXets> NhanXets { get; set; }
         public virtual ICollection<NhaXes> NhaXes { get; set; }
         public virtual ICollection<VeXes> VeXes { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

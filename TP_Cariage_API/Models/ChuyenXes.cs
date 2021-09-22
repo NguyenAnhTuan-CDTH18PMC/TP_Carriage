@@ -5,11 +5,6 @@ namespace TP_Cariage_API.Models
 {
     public partial class ChuyenXes
     {
-        public ChuyenXes()
-        {
-            VeXes = new HashSet<VeXes>();
-        }
-
         public int Id { get; set; }
         public DateTime NgayKhoiHanh { get; set; }
         public string GioKhoiHanh { get; set; }
@@ -21,5 +16,7 @@ namespace TP_Cariage_API.Models
         public int XeId { get; set; }
         public virtual Xes Xes { get; set; }
         public virtual ICollection<VeXes> VeXes { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 }

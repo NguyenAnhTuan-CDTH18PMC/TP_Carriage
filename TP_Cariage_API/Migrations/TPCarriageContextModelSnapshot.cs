@@ -305,40 +305,15 @@ namespace TP_Cariage_API.Migrations
                     b.ToTable("BenXes");
                 });
 
-            modelBuilder.Entity("TP_Cariage_API.Models.Chats", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("NhaXeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NhaXesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountsId");
-
-                    b.HasIndex("NhaXesId");
-
-                    b.ToTable("Chats");
-                });
-
             modelBuilder.Entity("TP_Cariage_API.Models.ChiTietVes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("GheId")
                         .HasColumnType("int");
@@ -405,6 +380,42 @@ namespace TP_Cariage_API.Migrations
                     b.HasIndex("XesId");
 
                     b.ToTable("ChuyenXes");
+                });
+
+            modelBuilder.Entity("TP_Cariage_API.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ChuyenXesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descreption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiemDanhGia")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NhaXesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountsId");
+
+                    b.HasIndex("ChuyenXesId");
+
+                    b.HasIndex("NhaXesId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.DiaDiems", b =>
@@ -880,17 +891,6 @@ namespace TP_Cariage_API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TP_Cariage_API.Models.Chats", b =>
-                {
-                    b.HasOne("TP_Cariage_API.Models.Accounts", null)
-                        .WithMany("Chats")
-                        .HasForeignKey("AccountsId");
-
-                    b.HasOne("TP_Cariage_API.Models.NhaXes", "NhaXes")
-                        .WithMany("Chats")
-                        .HasForeignKey("NhaXesId");
-                });
-
             modelBuilder.Entity("TP_Cariage_API.Models.ChiTietVes", b =>
                 {
                     b.HasOne("TP_Cariage_API.Models.Ghes", "Ghes")
@@ -911,6 +911,23 @@ namespace TP_Cariage_API.Migrations
                     b.HasOne("TP_Cariage_API.Models.Xes", "Xes")
                         .WithMany("ChuyenXes")
                         .HasForeignKey("XesId");
+                });
+
+            modelBuilder.Entity("TP_Cariage_API.Models.Comment", b =>
+                {
+                    b.HasOne("TP_Cariage_API.Models.Accounts", "Accounts")
+                        .WithMany("Comments")
+                        .HasForeignKey("AccountsId");
+
+                    b.HasOne("TP_Cariage_API.Models.ChuyenXes", "ChuyenXes")
+                        .WithMany("Comments")
+                        .HasForeignKey("ChuyenXesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TP_Cariage_API.Models.NhaXes", null)
+                        .WithMany("Chats")
+                        .HasForeignKey("NhaXesId");
                 });
 
             modelBuilder.Entity("TP_Cariage_API.Models.Ghes", b =>

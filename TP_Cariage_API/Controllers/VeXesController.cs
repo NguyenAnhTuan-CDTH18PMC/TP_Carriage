@@ -54,7 +54,7 @@ namespace TP_Cariage_API.Controllers
             return veXes;
         }
         [HttpGet("ChuyenXes/{id}")]
-        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesTheoChuyenXes(int id)
+        public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesTheoChuyenXes(int id)   
         {
             List<VeXes> result = new List<VeXes>();
             List<VeXes> listVeXes = await _context.VeXes.ToListAsync();
