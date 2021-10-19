@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nguye\\source\\repos\\TP_Cariage_API\\TP_Cariage_API\\TP_Cariage_API.csproj": {}
+    "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nguye\\source\\repos\\TP_Cariage_API\\TP_Cariage_API\\TP_Cariage_API.csproj": {
+    "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nguye\\source\\repos\\TP_Cariage_API\\TP_Cariage_API\\TP_Cariage_API.csproj",
+        "projectUniqueName": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
         "projectName": "TP_Cariage_API",
-        "projectPath": "C:\\Users\\nguye\\source\\repos\\TP_Cariage_API\\TP_Cariage_API\\TP_Cariage_API.csproj",
+        "projectPath": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
         "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nguye\\source\\repos\\TP_Cariage_API\\TP_Cariage_API\\obj\\",
+        "outputPath": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -115,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
