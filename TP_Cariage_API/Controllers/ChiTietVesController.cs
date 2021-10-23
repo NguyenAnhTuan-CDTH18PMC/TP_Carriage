@@ -216,10 +216,9 @@ namespace TP_Cariage_API.Controllers
                             tongtien += ctVes.GiaVe;
                         }
                     }
-                    Report hic = new Report(data.Thang1, tongtien);
+                    Report hic = new Report(i, tongtien);
                     temp.Add(hic);
                     tongtien = 0;
-                    data.Thang1++;
                 }
             }
             return Ok(temp);

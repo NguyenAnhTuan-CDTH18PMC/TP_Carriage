@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {}
+    "C:\\Users\\nguye\\Documents\\GitHub\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {}
   },
   "projects": {
-    "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {
+    "C:\\Users\\nguye\\Documents\\GitHub\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
+        "projectUniqueName": "C:\\Users\\nguye\\Documents\\GitHub\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
         "projectName": "TP_Cariage_API",
-        "projectPath": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
+        "projectPath": "C:\\Users\\nguye\\Documents\\GitHub\\TP_Carriage\\TP_Cariage_API\\TP_Cariage_API.csproj",
         "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "E:\\Project\\TP_Carriage\\TP_Cariage_API\\obj\\",
+        "outputPath": "C:\\Users\\nguye\\Documents\\GitHub\\TP_Carriage\\TP_Cariage_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
