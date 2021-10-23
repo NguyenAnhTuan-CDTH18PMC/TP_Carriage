@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
 using TP_Cariage_API.Momo;
 namespace TP_Cariage_API.Controllers
@@ -146,6 +147,82 @@ namespace TP_Cariage_API.Controllers
                 }
             }
             return result;
+        }
+
+        [HttpGet("Money")]
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang(Money money)
+        {
+            List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
+            decimal tongtien = 0;
+            foreach(ChiTietVes ctVes in listChiTietVes)
+            {
+                if (ctVes.CreateAt.Month == money.Thang && ctVes.CreateAt.Year==money.Nam)
+                {
+                    tongtien += ctVes.GiaVe;
+                }
+            }
+            return Ok(tongtien);
+        }
+
+        [HttpGet("MoneyList")]
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu(MYMY data)
+        {
+            List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
+            List<Report> temp = new List<Report>();
+            decimal tongtien = 0;
+            if (data.Nam2 < data.Nam1)
+            {
+                return NotFound();
+            }
+            if (data.Nam1 == data.Nam2)
+            {
+                while (data.Thang1 <= data.Thang2)
+                {
+                    foreach (ChiTietVes ctVes in listChiTietVes)
+                    {
+                        if (ctVes.CreateAt.Month==data.Thang1 && ctVes.CreateAt.Year==data.Nam1)
+                        {
+                            tongtien += ctVes.GiaVe;
+                        }
+                    }
+                    Report hic = new Report(data.Thang1, tongtien);
+                    temp.Add(hic);
+                    tongtien = 0;
+                    data.Thang1++;
+                }
+            }
+            if (data.Nam1 < data.Nam2)
+            {
+                while (data.Thang1 <= 12)
+                {
+                    foreach (ChiTietVes ctVes in listChiTietVes)
+                    {
+                        if (ctVes.CreateAt.Month == data.Thang1 && ctVes.CreateAt.Year == data.Nam1)
+                        {
+                            tongtien += ctVes.GiaVe;
+                        }
+                    }
+                    Report hic = new Report(data.Thang1, tongtien);
+                    temp.Add(hic);
+                    tongtien = 0;
+                    data.Thang1++;
+                }
+                for(int i = 1; i <= data.Thang2; i++)
+                {
+                    foreach (ChiTietVes ctVes in listChiTietVes)
+                    {
+                        if (ctVes.CreateAt.Month == i && ctVes.CreateAt.Year == data.Nam2)
+                        {
+                            tongtien += ctVes.GiaVe;
+                        }
+                    }
+                    Report hic = new Report(data.Thang1, tongtien);
+                    temp.Add(hic);
+                    tongtien = 0;
+                    data.Thang1++;
+                }
+            }
+            return Ok(temp);
         }
         [HttpGet("NhaXes/{id}")]
         public async Task<ActionResult<IEnumerable<ChiTietVes>>> GetVeXesTheoNhaXes(int id)

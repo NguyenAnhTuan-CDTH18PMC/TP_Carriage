@@ -100,3 +100,20 @@ localhost/api/ChiTietVes/ChuyenXes/{id} ==> GET(truyền vào id của chuyến 
 localhost/api/BangGias/NhaXes/{id} ==>GET(truyền vào id của nhà xe )==> Lấy ra tất cả các bảng giá của nhà xe
 localhost/api/VeXes/Accounts/{email} ==> GET(truyền vào email của nhà xe) ==> Lấy ra tất cả các vé của account đó
 localhost/api/NhaXes/Email/{email} ==> GET(Truyền vào email của nhà xe) ==> Lấy ra thông tin của nhà xe theo email
+
+localhost/api/ChiTietVes/MoneyList ==> GET ==> Lấy ra t doanh thu mỗi tháng từ tháng A,năm A đến tháng B,năm B (Điều kiện Năm B-Năm A=1)
+{
+   "Thang1":"",
+   "Nam1":"",
+   "Thang2":"",
+   "Nam2":""
+}
+
+localhost/api/ChiTietVes/Money ==> GET ==> Lấy ra  doanh thu của Tháng A năm A
+{
+   "Thang":"",
+   "Nam":"",
+"
+}
+
+localhost/Api/Accounts/GetCustomer ==> GEt ==> Lấy ra tất cả account có loại là Khách hàng(Quyen=1)
