@@ -150,7 +150,7 @@ namespace TP_Cariage_API.Controllers
         }
 
         [HttpGet("Money")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang(Money money)
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang([FromHeader]Money money)
         {
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             decimal tongtien = 0;
@@ -165,7 +165,7 @@ namespace TP_Cariage_API.Controllers
         }
 
         [HttpGet("MoneyList")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu(MYMY data)
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu([FromHeader] MYMY data)
         {
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             List<Report> temp = new List<Report>();
