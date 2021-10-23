@@ -53,6 +53,38 @@ namespace TP_Cariage_API.Controllers
 
             return veXes;
         }
+
+
+       /* [HttpGet("Accounts/{email}")]
+        public async Task<IActionResult> GetCustomer(string email)
+        {
+            var vexe = await _context.VeXes.ToListAsync();
+            var temp = new List<VeXes>();
+            foreach(var item in vexe)
+            {
+                item.Accounts = await _userManager.FindByIdAsync(item.AccountId);
+                if (item.Accounts.Email == email)
+                {
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(item.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    item.ChuyenXes = chuyenXes;
+                    temp.Add(item);
+                }
+            }
+            if (temp == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(temp);
+        }*/
+
         [HttpGet("ChuyenXes/{id}")]
         public async Task<ActionResult<IEnumerable<VeXes>>> GetVeXesTheoChuyenXes(int id)   
         {
@@ -64,6 +96,7 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (VeXes ves in listVeXes)
             {
+                ves.Accounts = await _userManager.FindByIdAsync(ves.AccountId);
                 if (ves.ChuyenXeId == id)
                 {
                     var chuyenXes = await _context.ChuyenXes.FindAsync(ves.ChuyenXeId);
@@ -92,6 +125,7 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (VeXes ves in listVeXes)
             {
+                ves.Accounts = await _userManager.FindByIdAsync(ves.AccountId);
                 if (ves.Accounts.Email == email)
                 {
                     var chuyenXes = await _context.ChuyenXes.FindAsync(ves.ChuyenXeId);

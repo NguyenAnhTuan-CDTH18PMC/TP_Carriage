@@ -40,6 +40,21 @@ namespace TP_Cariage_API.Controllers
             return Ok(users);
         }
 
+        [HttpGet("GetCustomer")]
+        public async Task<IActionResult> GetCustomer()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var temp = new List<Accounts>();
+            foreach (Accounts user in users)
+            {
+                if (user.Quyen == 1)
+                {
+                    temp.Add(user);
+                }
+            }
+                return Ok(temp);
+        }
+
         // GET: api/Accounts/5
         [HttpGet("UserInfo")]
         [Authorize]
