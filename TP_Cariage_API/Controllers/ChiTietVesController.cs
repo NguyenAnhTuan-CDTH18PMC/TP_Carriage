@@ -172,7 +172,7 @@ namespace TP_Cariage_API.Controllers
             decimal tongtien = 0;
             if (data.Nam2 < data.Nam1)
             {
-                return NotFound();
+                return Content("Năm trước phải lớn hơn năm sau");
             }
             if (data.Nam1 == data.Nam2)
             {
