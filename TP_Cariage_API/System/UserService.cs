@@ -117,7 +117,7 @@ namespace TP_Cariage_API.System
                 smtp.UseDefaultCredentials = true;
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("TP.Carriage.CaoThang@gmail.com", "PYCO@123");
+                smtp.Credentials = new NetworkCredential("TP.Carriage.CaoThang@gmail.com", "Tuanhihi123");
                 smtp.Send(mailMessage);
                 return Task.FromResult(true);
             }
