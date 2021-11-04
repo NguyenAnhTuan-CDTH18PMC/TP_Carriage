@@ -150,22 +150,35 @@ namespace TP_Cariage_API.Controllers
         }
 
         [HttpGet("Money")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang([FromHeader]Money money)
-        {
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang([FromBody]Money money)
+        {           
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             decimal tongtien = 0;
             foreach(ChiTietVes ctVes in listChiTietVes)
             {
                 if (ctVes.CreateAt.Month == money.Thang && ctVes.CreateAt.Year==money.Nam)
                 {
-                    tongtien += ctVes.GiaVe;
+                    ctVes.Ghes = await _context.Ghes.FindAsync(ctVes.GheId);
+                    ctVes.Ghes.Xes= await _context.Xes.FindAsync(ctVes.Ghes.XeId);
+                    ctVes.Ghes.Xes.NhaXes= await _context.NhaXes.FindAsync(ctVes.Ghes.Xes.NhaXeId);
+                    ctVes.VeXes = await _context.VeXes.FindAsync(ctVes.VeXeId);
+                    ctVes.VeXes.ChuyenXes = await _context.ChuyenXes.FindAsync(ctVes.VeXes.ChuyenXeId);
+                    ctVes.VeXes.ChuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(ctVes.VeXes.ChuyenXes.LichTrinhId);
+                    if (ctVes.Ghes.Xes.NhaXeId == money.NhaXe && ctVes.VeXes.ChuyenXes.LichTrinhs.Id==money.LichTrinh)
+                    {
+                        tongtien += ctVes.GiaVe;
+                    }
                 }
             }
-            return Ok(tongtien);
+            LichTrinhs test = await _context.LichTrinhs.FindAsync(money.LichTrinh);
+            test.DiemDens = await _context.DiaDiems.FindAsync(test.DiemDenId);
+            test.DiemDis = await _context.DiaDiems.FindAsync(test.DiemDiId);
+            NhaXeMoney temp = new NhaXeMoney(test.DiemDis.TenDiaDiem+" - "+test.DiemDens.TenDiaDiem,tongtien);
+            return Ok(temp);
         }
 
         [HttpGet("MoneyList")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu([FromHeader] MYMY data)
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu([FromBody] MYMY data)
         {
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             List<Report> temp = new List<Report>();
@@ -182,7 +195,13 @@ namespace TP_Cariage_API.Controllers
                     {
                         if (ctVes.CreateAt.Month==data.Thang1 && ctVes.CreateAt.Year==data.Nam1)
                         {
-                            tongtien += ctVes.GiaVe;
+                            ctVes.Ghes = await _context.Ghes.FindAsync(ctVes.GheId);
+                            ctVes.Ghes.Xes = await _context.Xes.FindAsync(ctVes.Ghes.XeId);
+                            ctVes.Ghes.Xes.NhaXes = await _context.NhaXes.FindAsync(ctVes.Ghes.Xes.NhaXeId);
+                            if (ctVes.Ghes.Xes.NhaXeId == data.NhaXe)
+                            {
+                                tongtien += ctVes.GiaVe;
+                            }
                         }
                     }
                     Report hic = new Report(data.Thang1, tongtien);
@@ -199,7 +218,13 @@ namespace TP_Cariage_API.Controllers
                     {
                         if (ctVes.CreateAt.Month == data.Thang1 && ctVes.CreateAt.Year == data.Nam1)
                         {
-                            tongtien += ctVes.GiaVe;
+                            ctVes.Ghes = await _context.Ghes.FindAsync(ctVes.GheId);
+                            ctVes.Ghes.Xes = await _context.Xes.FindAsync(ctVes.Ghes.XeId);
+                            ctVes.Ghes.Xes.NhaXes = await _context.NhaXes.FindAsync(ctVes.Ghes.Xes.NhaXeId);
+                            if (ctVes.Ghes.Xes.NhaXeId == data.NhaXe)
+                            {
+                                tongtien += ctVes.GiaVe;
+                            }
                         }
                     }
                     Report hic = new Report(data.Thang1, tongtien);
@@ -213,7 +238,13 @@ namespace TP_Cariage_API.Controllers
                     {
                         if (ctVes.CreateAt.Month == i && ctVes.CreateAt.Year == data.Nam2)
                         {
-                            tongtien += ctVes.GiaVe;
+                            ctVes.Ghes = await _context.Ghes.FindAsync(ctVes.GheId);
+                            ctVes.Ghes.Xes = await _context.Xes.FindAsync(ctVes.Ghes.XeId);
+                            ctVes.Ghes.Xes.NhaXes = await _context.NhaXes.FindAsync(ctVes.Ghes.Xes.NhaXeId);
+                            if (ctVes.Ghes.Xes.NhaXeId == data.NhaXe)
+                            {
+                                tongtien += ctVes.GiaVe;
+                            }
                         }
                     }
                     Report hic = new Report(i, tongtien);

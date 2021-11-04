@@ -5,6 +5,12 @@
     <UserSecretsId>b2190e72-c113-4705-8697-05fd4303c230</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.cs" />
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.Designer.cs" />

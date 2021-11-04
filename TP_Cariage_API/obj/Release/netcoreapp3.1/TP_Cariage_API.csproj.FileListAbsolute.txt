@@ -517,7 +517,6 @@ C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\bin\Release\netcoreap
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.csproj.AssemblyReference.cache
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.AssemblyInfoInputs.cache
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.AssemblyInfo.cs
@@ -540,3 +539,4 @@ C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreap
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.dll
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.pdb
 C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.genruntimeconfig.cache
+C:\Users\nguye\Documents\GitHub\TP_Carriage\TP_Cariage_API\obj\Release\netcoreapp3.1\TP_Cariage_API.csproj.AssemblyReference.cache

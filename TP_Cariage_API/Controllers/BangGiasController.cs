@@ -33,12 +33,16 @@ namespace TP_Cariage_API.Controllers
                     lichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDenId);
                     lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
                     bangGias.LichTrinhs = lichTrinhs;
-
+               
                     bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.NhaXesId);
 
                     NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
                     nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
                     bangGias.NhaXes = nhaXes;
+                    bangGias.NhaXes.HinhAnh = "";
+                bangGias.NhaXes.BangGias = null;
+                bangGias.LichTrinhs.BangGias = null;
+                bangGias.LoaiXes.HinhAnh = "";
             }
             return listBangGias;
         }
@@ -66,6 +70,10 @@ namespace TP_Cariage_API.Controllers
                     NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
                     nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
                     bangGias.NhaXes = nhaXes;
+                    bangGias.NhaXes.HinhAnh = "";
+                    bangGias.NhaXes.BangGias = null;
+                    bangGias.LichTrinhs.BangGias = null;
+                    bangGias.LoaiXes.HinhAnh = "";
                     result.Add(bangGias);
                 }
             }
@@ -91,6 +99,10 @@ namespace TP_Cariage_API.Controllers
             NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
             nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
             bangGias.NhaXes = nhaXes;
+            bangGias.NhaXes.HinhAnh = "";
+            bangGias.NhaXes.BangGias = null;
+            bangGias.LichTrinhs.BangGias = null;
+            bangGias.LoaiXes.HinhAnh = "";
             return bangGias;
         }
 
