@@ -221,7 +221,7 @@ namespace TP_Cariage_API.System
             var result = await _userManager.FindByEmailAsync(request.Email);
             if (result!=null)
             {
-                var verify = await SendForgetPasswordEmail(result, "https://localhost:3000");
+                var verify = await SendForgetPasswordEmail(result, "http://tpcarriage.surge.sh");
                 var sendEmail = await SendMail(new EmailRequest
                 {
                     To = request.Email,
