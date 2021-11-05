@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Controllers
@@ -96,7 +97,21 @@ namespace TP_Cariage_API.Controllers
                 }
             }
             float TBB =tongDiem/sl;
-            return Ok(TBB);
+
+            var listVe = await _context.ChiTietVes.ToListAsync();
+            int tongVe = 0;
+            decimal tongTien=0;
+            foreach (ChiTietVes chiTietVes in listVe)
+            {
+                chiTietVes.VeXes = await _context.VeXes.FindAsync(chiTietVes.VeXeId);
+                if (chiTietVes.VeXes.ChuyenXeId == id)
+                {
+                    tongVe++;
+                    tongTien += chiTietVes.GiaVe;
+                }
+            }
+            DanhGia danhGia = new DanhGia(TBB, tongVe, tongTien);
+            return Ok(danhGia);
         }
         // PUT: api/Chats/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

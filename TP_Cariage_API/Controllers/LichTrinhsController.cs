@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Controllers
@@ -53,7 +54,39 @@ namespace TP_Cariage_API.Controllers
 
             return lichTrinhs;
         }
-
+          [HttpGet("TopLichTrinh")]
+        public async Task<ActionResult<IEnumerable<TopLichTrinh>>> GetTopLichTrinh()
+        {
+            List<LichTrinhs> listLichTrinh = await _context.LichTrinhs.ToListAsync();
+            List<TopLichTrinh> listTemp = new List<TopLichTrinh>();
+            if (listLichTrinh == null)
+            {
+                return NotFound();
+            }
+            int tongVe , lichtrinh ;
+            foreach(LichTrinhs lichTrinh in listLichTrinh)
+            {
+                tongVe = 0;
+                lichtrinh = 0;
+                List<VeXes> listVeXe = await _context.VeXes.ToListAsync();
+                foreach(VeXes vexe in listVeXe)
+                {
+                    vexe.ChuyenXes = await _context.ChuyenXes.FindAsync(vexe.ChuyenXeId);
+                    if (vexe.ChuyenXes.LichTrinhId == lichTrinh.Id)
+                    {
+                        tongVe++;
+                        lichtrinh = lichTrinh.Id;
+                    }
+                }
+                TopLichTrinh test = new TopLichTrinh(lichtrinh, tongVe);
+                listTemp.Add(test);
+            }
+            if (listTemp == null)
+            {
+                return BadRequest("Không có lịch trình nào khả dụng");
+            }
+            return listTemp;
+        }
         // PUT: api/LichTrinhs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

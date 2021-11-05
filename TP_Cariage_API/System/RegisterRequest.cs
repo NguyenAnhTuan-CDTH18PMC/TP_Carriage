@@ -15,6 +15,7 @@ namespace TP_Cariage_API.System
         public int Quyen { get; set; }
         public string DiaChi { get; set; }
         public int GioiTinh { get; set; }
+        public int TrangThai { get; set; }
         public DateTime NamSinh { get; set; }
     }
 }

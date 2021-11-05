@@ -131,7 +131,20 @@ namespace TP_Cariage_API.Controllers
             {
                 return BadRequest();
             }
-
+            var listVe = await _context.VeXes.ToListAsync();
+            int tong = 0;
+            foreach (VeXes ves in listVe)
+            {
+                if (ves.ChuyenXeId == chuyenXes.Id)
+                {
+                    tong++;
+                }
+            }
+            if (chuyenXes == null)
+            {
+                return NotFound();
+            }
+            if (tong > 0) { return BadRequest("Chuyến xe này đã có vé rồi!"); }
             _context.Entry(chuyenXes).State = EntityState.Modified;
 
             try
@@ -172,14 +185,22 @@ namespace TP_Cariage_API.Controllers
         public async Task<ActionResult<ChuyenXes>> DeleteChuyenXes(int id)
         {
             var chuyenXes = await _context.ChuyenXes.FindAsync(id);
+            var listVe = await _context.VeXes.ToListAsync();
+            int tong = 0;
+            foreach(VeXes ves in listVe)
+            {
+                if (ves.ChuyenXeId == id)
+                {
+                    tong++;
+                }
+            }
             if (chuyenXes == null)
             {
                 return NotFound();
             }
-
+            if (tong > 0) { return BadRequest("Chuyến xe này đã có vé rồi!"); }
             _context.ChuyenXes.Remove(chuyenXes);
             await _context.SaveChangesAsync();
-
             return chuyenXes;
         }
 

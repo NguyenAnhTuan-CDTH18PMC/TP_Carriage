@@ -53,6 +53,7 @@ namespace TP_Cariage_API.Controllers
                 ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
                 ves.VeXes.ChuyenXes = chuyenXes;
                 ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                ves.VeXes.Accounts.AnhDaiDien = "";
             }
             return listChiTietVes;
         }
@@ -84,6 +85,7 @@ namespace TP_Cariage_API.Controllers
                     ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    ves.VeXes.Accounts.AnhDaiDien = "";
                     result.Add(ves);
                 }
             }
@@ -118,6 +120,7 @@ namespace TP_Cariage_API.Controllers
                     ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    ves.VeXes.Accounts.AnhDaiDien = "";
                     result.Add(ves);
                 }
             }
@@ -149,6 +152,7 @@ namespace TP_Cariage_API.Controllers
                     ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    ves.VeXes.Accounts.AnhDaiDien = "";
                     result.Add(ves);
                 }
             }
@@ -288,6 +292,7 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);                   
                     ves.VeXes.ChuyenXes = chuyenXes;
                     ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    ves.VeXes.Accounts.AnhDaiDien = "";
                     result.Add(ves);
                 }
             }
@@ -315,6 +320,7 @@ namespace TP_Cariage_API.Controllers
             chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
             veXes.ChuyenXes = chuyenXes;
             veXes.Accounts = await _userManager.FindByIdAsync(veXes.AccountId.ToString());
+            veXes.Accounts.AnhDaiDien = "";
             chiTietVes.VeXes = veXes;
             if (chiTietVes == null)
             {

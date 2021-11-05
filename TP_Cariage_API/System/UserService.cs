@@ -79,7 +79,8 @@ namespace TP_Cariage_API.System
                 AnhDaiDien=request.AnhDaiDien,
                 UserName = request.Email,
                 DiaChi = request.DiaChi,
-                GioiTinh = request.GioiTinh
+                GioiTinh = request.GioiTinh,
+                TrangThai=request.TrangThai
 
             };
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -142,6 +143,7 @@ namespace TP_Cariage_API.System
                     + "<h1 style=color:#25D366><center><img width=20 height=20 src=https://cachbothuocla.vn/wp-content/uploads/2019/03/tick-xanh.png>" + "Bạn đã xác thực thành công</center></h1>"
                     + "<span><center><strong>" + user.TenKh.ToString() + " đã trở thành thành viên của TP_Carriage</strong></center></span>"
                     + "<span><center><strong>TP_Carriage xin cảm ơn</strong></center></span>"
+                    + "<a href=http://tpcarriage.surge.sh/login >Trở về đăng nhập</a>"
                     + "<center><img height=500 width=800 src=https://anhdep123.com/wp-content/uploads/2020/05/h%C3%ACnh-%E1%BA%A3nh-c%E1%BA%A3m-%C6%A1n.jpg>" + "</center>"
                 + "</body></html>"
                 };
