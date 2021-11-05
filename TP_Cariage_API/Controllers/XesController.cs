@@ -59,6 +59,7 @@ namespace TP_Cariage_API.Controllers
                 if (xes.NhaXeId == id)
                 {
                     xes.NhaXes = await _context.NhaXes.FindAsync(xes.NhaXeId);
+                    xes.NhaXes.HinhAnh = "";
                     xes.NhaXes.BenXes = await _context.BenXes.FindAsync(xes.NhaXes.BenXeId);
                     xes.LoaiXes = await _context.LoaiXes.FindAsync(xes.LoaiXeId);
                     result.Add(xes);

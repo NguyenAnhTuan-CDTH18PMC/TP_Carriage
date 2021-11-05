@@ -44,7 +44,9 @@ namespace TP_Cariage_API.Controllers
                 chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
                 chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                 chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                chuyenXes.Xes.HinhAnh = "";
                 chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                chuyenXes.Xes.NhaXes.HinhAnh = "";
                 chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
                 chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
                 ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
@@ -73,8 +75,10 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
                     chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.HinhAnh = "";
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
-                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.NhaXes.HinhAnh = "";
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);           
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
                     ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
                     ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
@@ -105,7 +109,9 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
                     chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.HinhAnh = "";
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.HinhAnh = "";
                     chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
                     ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
@@ -150,7 +156,7 @@ namespace TP_Cariage_API.Controllers
         }
 
         [HttpGet("Money")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang([FromBody]Money money)
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayGiaTienTheoThang([FromHeader]Money money)
         {           
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             decimal tongtien = 0;
@@ -178,7 +184,7 @@ namespace TP_Cariage_API.Controllers
         }
 
         [HttpGet("MoneyList")]
-        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu([FromBody] MYMY data)
+        public async Task<ActionResult<IEnumerable<ChiTietVes>>> LayListDoanhThu([FromHeader] MYMY data)
         {
             List<ChiTietVes> listChiTietVes = await _context.ChiTietVes.ToListAsync();
             List<Report> temp = new List<Report>();
@@ -275,7 +281,9 @@ namespace TP_Cariage_API.Controllers
                     chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
                     chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
                     chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.HinhAnh = "";
                     chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.HinhAnh = "";
                     chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
                     chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);                   
                     ves.VeXes.ChuyenXes = chuyenXes;
