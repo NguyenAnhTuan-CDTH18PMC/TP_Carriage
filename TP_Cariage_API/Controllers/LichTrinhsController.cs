@@ -78,7 +78,9 @@ namespace TP_Cariage_API.Controllers
                         lichtrinh = lichTrinh.Id;
                     }
                 }
-                TopLichTrinh test = new TopLichTrinh(lichtrinh, tongVe);
+                lichTrinh.DiemDens = await _context.DiaDiems.FindAsync(lichTrinh.DiemDenId);
+                lichTrinh.DiemDis = await _context.DiaDiems.FindAsync(lichTrinh.DiemDiId);
+                TopLichTrinh test = new TopLichTrinh(lichtrinh, tongVe,lichTrinh.DiemDis.TenDiaDiem+" - "+lichTrinh.DiemDens.TenDiaDiem);
                 listTemp.Add(test);
             }
             if (listTemp == null)

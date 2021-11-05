@@ -11,6 +11,10 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.cs" />
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.Designer.cs" />
