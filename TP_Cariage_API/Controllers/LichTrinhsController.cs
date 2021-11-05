@@ -64,10 +64,12 @@ namespace TP_Cariage_API.Controllers
                 return NotFound();
             }
             int tongVe , lichtrinh ;
+            decimal tongTien;
             foreach(LichTrinhs lichTrinh in listLichTrinh)
             {
                 tongVe = 0;
                 lichtrinh = 0;
+                tongTien=0;
                 List<VeXes> listVeXe = await _context.VeXes.ToListAsync();
                 foreach(VeXes vexe in listVeXe)
                 {
@@ -78,9 +80,17 @@ namespace TP_Cariage_API.Controllers
                         lichtrinh = lichTrinh.Id;
                     }
                 }
+                List<BangGias> listBangGia = await _context.BangGias.ToListAsync();
+                foreach(BangGias tp in listBangGia)
+                {
+                    if(tp.LichTrinhsId== lichTrinh.Id)
+                    {
+                        tongTien = tp.GiaVe;
+                    }
+                }
                 lichTrinh.DiemDens = await _context.DiaDiems.FindAsync(lichTrinh.DiemDenId);
                 lichTrinh.DiemDis = await _context.DiaDiems.FindAsync(lichTrinh.DiemDiId);
-                TopLichTrinh test = new TopLichTrinh(lichtrinh, tongVe,lichTrinh.DiemDis.TenDiaDiem+" - "+lichTrinh.DiemDens.TenDiaDiem);
+                TopLichTrinh test = new TopLichTrinh(lichtrinh, tongVe,lichTrinh.DiemDis.TenDiaDiem+" - "+lichTrinh.DiemDens.TenDiaDiem,tongTien);
                 listTemp.Add(test);
             }
             if (listTemp == null)
