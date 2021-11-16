@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Controllers
@@ -34,7 +35,7 @@ namespace TP_Cariage_API.Controllers
                     lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
                     bangGias.LichTrinhs = lichTrinhs;
                
-                    bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.NhaXesId);
+                    bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.LoaiXesId);
 
                     NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
                     nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
@@ -42,7 +43,7 @@ namespace TP_Cariage_API.Controllers
                     bangGias.NhaXes.HinhAnh = "";
                 bangGias.NhaXes.BangGias = null;
                 bangGias.LichTrinhs.BangGias = null;
-                bangGias.LoaiXes.HinhAnh = "";
+                bangGias.LoaiXes.HinhAnh = null;
             }
             return listBangGias;
         }
@@ -78,6 +79,42 @@ namespace TP_Cariage_API.Controllers
                 }
             }
             return result;
+        }
+
+        [HttpGet("SoSanh/{id}")]
+        public async Task<ActionResult<IEnumerable<SoSanh>>> SoSanh(int id)
+        {
+            List<BangGias> result = new List<BangGias>();
+            List<BangGias> listBangGias = await _context.BangGias.ToListAsync();
+            List<SoSanh> test = new List<SoSanh>();
+            if (listBangGias == null)
+            {
+                return NotFound();
+            }
+            foreach (BangGias bangGias in listBangGias)
+            {
+                if (bangGias.LichTrinhsId == id && bangGias.TrangThai==1)
+                {
+                    LichTrinhs lichTrinhs = await _context.LichTrinhs.FindAsync(bangGias.LichTrinhsId);
+                    lichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDenId);
+                    lichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(lichTrinhs.DiemDiId);
+                    bangGias.LichTrinhs = lichTrinhs;
+
+                    bangGias.LoaiXes = await _context.LoaiXes.FindAsync(bangGias.LoaiXesId);
+
+                    NhaXes nhaXes = await _context.NhaXes.FindAsync(bangGias.NhaXesId);
+                    nhaXes.BenXes = await _context.BenXes.FindAsync(nhaXes.BenXeId);
+                    bangGias.NhaXes = nhaXes;
+                    bangGias.NhaXes.HinhAnh = "";
+                    bangGias.NhaXes.BangGias = null;
+                    bangGias.LichTrinhs.BangGias = null;
+                    bangGias.LoaiXes.HinhAnh = "";
+                    result.Add(bangGias);
+                    SoSanh temp = new SoSanh(bangGias.NhaXes.TenNhaXe,bangGias.LoaiXes.TenLoai,bangGias.GiaVe,bangGias.NhaXesId,bangGias.LoaiXesId,bangGias.Id);
+                    test.Add(temp);
+                }
+            }
+            return test;
         }
         // GET: api/BangGias/5
         [HttpGet("{id}")]
@@ -146,6 +183,14 @@ namespace TP_Cariage_API.Controllers
         [Authorize]
         public async Task<ActionResult<BangGias>> PostBangGias(BangGias bangGias)
         {
+            List<BangGias> lstBangGia = await _context.BangGias.ToListAsync();
+            foreach(BangGias test in lstBangGia)
+            {
+                if(test.NhaXesId==bangGias.NhaXesId && test.LoaiXesId==bangGias.LoaiXesId && test.LichTrinhsId == bangGias.LichTrinhsId)
+                {
+                    return BadRequest("Bảng giá này đã được tạo rồi!");
+                }
+            }
             _context.BangGias.Add(bangGias);
             await _context.SaveChangesAsync();
 

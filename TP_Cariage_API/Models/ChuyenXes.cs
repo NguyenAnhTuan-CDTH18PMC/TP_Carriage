@@ -9,8 +9,8 @@ namespace TP_Cariage_API.Models
         public DateTime NgayKhoiHanh { get; set; }
         public string GioKhoiHanh { get; set; }
         public string ThoiGianDen { get; set; }
+        public int GiamGia { get; set; }
         public int TrangThai { get; set; }
-
         public int LichTrinhId { get; set; }
         public virtual LichTrinhs LichTrinhs { get; set; }
         public int XeId { get; set; }

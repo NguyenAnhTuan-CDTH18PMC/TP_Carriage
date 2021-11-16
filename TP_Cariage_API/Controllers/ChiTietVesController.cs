@@ -38,22 +38,28 @@ namespace TP_Cariage_API.Controllers
             }
             foreach (ChiTietVes ves in listChiTietVes)
             {
-                ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
-                var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
-                chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
-                chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
-                chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
-                chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
-                chuyenXes.Xes.HinhAnh = "";
-                chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
-                chuyenXes.Xes.NhaXes.HinhAnh = "";
-                chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
-                chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
-                ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
-                ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
-                ves.VeXes.ChuyenXes = chuyenXes;
-                ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
-                ves.VeXes.Accounts.AnhDaiDien = "";
+                try
+                {
+                    ves.VeXes = await _context.VeXes.FindAsync(ves.VeXeId);
+                    var chuyenXes = await _context.ChuyenXes.FindAsync(ves.VeXes.ChuyenXeId);
+                    chuyenXes.LichTrinhs = await _context.LichTrinhs.FindAsync(chuyenXes.LichTrinhId);
+                    chuyenXes.LichTrinhs.DiemDens = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDenId);
+                    chuyenXes.LichTrinhs.DiemDis = await _context.DiaDiems.FindAsync(chuyenXes.LichTrinhs.DiemDiId);
+                    chuyenXes.Xes = await _context.Xes.FindAsync(chuyenXes.XeId);
+                    chuyenXes.Xes.HinhAnh = "";
+                    chuyenXes.Xes.NhaXes = await _context.NhaXes.FindAsync(chuyenXes.Xes.NhaXeId);
+                    chuyenXes.Xes.NhaXes.HinhAnh = "";
+                    chuyenXes.Xes.NhaXes.BenXes = await _context.BenXes.FindAsync(chuyenXes.Xes.NhaXes.BenXeId);
+                    chuyenXes.Xes.LoaiXes = await _context.LoaiXes.FindAsync(chuyenXes.Xes.LoaiXeId);
+                    ves.Ghes = await _context.Ghes.FindAsync(ves.GheId);
+                    ves.Ghes.Xes = await _context.Xes.FindAsync(ves.Ghes.XeId);
+                    ves.VeXes.ChuyenXes = chuyenXes;
+                    ves.VeXes.Accounts = await _userManager.FindByIdAsync(ves.VeXes.AccountId.ToString());
+                    ves.VeXes.Accounts.AnhDaiDien = "";
+                }catch(Exception e)
+                {
+                    return BadRequest(e);
+                }
             }
             return listChiTietVes;
         }

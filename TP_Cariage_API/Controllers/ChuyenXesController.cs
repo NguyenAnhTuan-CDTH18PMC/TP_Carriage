@@ -101,6 +101,7 @@ namespace TP_Cariage_API.Controllers
             return result;
         }
 
+
         // GET: api/ChuyenXes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ChuyenXes>> GetChuyenXes(int id)
@@ -173,6 +174,14 @@ namespace TP_Cariage_API.Controllers
         [Authorize]
         public async Task<ActionResult<ChuyenXes>> PostChuyenXes(ChuyenXes chuyenXes)
         {
+            List<ChuyenXes> listChuyenXe = await _context.ChuyenXes.ToListAsync();
+            foreach(ChuyenXes test in listChuyenXe)
+            {               
+                if(chuyenXes.XeId==test.XeId && chuyenXes.NgayKhoiHanh==test.NgayKhoiHanh )
+                {
+                    return BadRequest("Xe này đã có chuyến!");
+                }
+            }
             _context.ChuyenXes.Add(chuyenXes);
             await _context.SaveChangesAsync();
 

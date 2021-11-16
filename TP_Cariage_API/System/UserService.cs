@@ -80,7 +80,8 @@ namespace TP_Cariage_API.System
                 UserName = request.Email,
                 DiaChi = request.DiaChi,
                 GioiTinh = request.GioiTinh,
-                TrangThai=request.TrangThai
+                TrangThai=request.TrangThai,
+                NamSinh=request.NamSinh
 
             };
             var result = await _userManager.CreateAsync(user, request.Password);

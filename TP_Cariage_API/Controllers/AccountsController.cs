@@ -87,9 +87,11 @@ namespace TP_Cariage_API.Controllers
                     user.Cmnd = accounts.Cmnd;
                     user.TenKh = accounts.TenKh;
                     user.DiaChi = accounts.DiaChi;
-                    user.Password = accounts.Password;
+                    user.Password =user.Password;
                     user.AnhDaiDien = accounts.AnhDaiDien;
                 }
+                await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -105,7 +107,34 @@ namespace TP_Cariage_API.Controllers
 
             return NoContent();
         }
+        [HttpPut("Lock/{email}")]
+        [Authorize]
+        public async Task<IActionResult> LockAccount(string email, Lock accounts)
+        {
 
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {                  
+                    user.TrangThai = accounts.TrangThai;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AccountsExistsAsync(email).Result)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
         // POST: api/Accounts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

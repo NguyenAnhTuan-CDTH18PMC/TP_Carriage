@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TP_Cariage_API.Data;
+using TP_Cariage_API.DTOs;
 using TP_Cariage_API.Models;
 
 namespace TP_Cariage_API.Controllers
@@ -98,7 +99,32 @@ namespace TP_Cariage_API.Controllers
 
             return NoContent();
         }
-
+        [HttpPut("Lock/{id}")]
+        [Authorize]
+        public async Task<IActionResult> LockNhaXe(int id, Lock nhaXes)
+        {
+            try
+            {
+                var user = await _context.NhaXes.FindAsync(id);
+                if (user != null)
+                {
+                    user.TrangThai = nhaXes.TrangThai;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NhaXesExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return Ok();
+        }
         // POST: api/NhaXes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

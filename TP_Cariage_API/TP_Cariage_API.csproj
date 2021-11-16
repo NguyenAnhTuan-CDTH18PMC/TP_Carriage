@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>b2190e72-c113-4705-8697-05fd4303c230</UserSecretsId>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +17,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\.well-known\**" />
+    <Content Remove="wwwroot\.well-known\**" />
+    <EmbeddedResource Remove="wwwroot\.well-known\**" />
+    <None Remove="wwwroot\.well-known\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.cs" />
     <Compile Remove="Migrations\20210629053727_update-database-lichtrinh-login-logout.Designer.cs" />
     <Compile Remove="Migrations\20210629054200_update-database-lichtrinh-login-logout.cs" />
@@ -23,29 +31,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\.well-known\pki-validation\FF097CF63A52F863E9D1833478951C18.txt" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.15" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.15">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="Twilio" Version="5.65.0" />
-    <PackageReference Include="Twilio.AspNet.Core" Version="5.37.2" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 
